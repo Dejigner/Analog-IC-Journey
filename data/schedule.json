@@ -1,0 +1,234 @@
+{
+  "days": [
+    {
+      "id": "day-0",
+      "dayNumber": 0,
+      "date": "2026-01-30",
+      "dateFormatted": "Friday, January 30, 2026",
+      "totalHours": 0,
+      "completed": false,
+      "sessions": []
+    },
+    {
+      "id": "day-1",
+      "dayNumber": 1,
+      "date": "2026-01-31",
+      "dateFormatted": "Saturday, January 31, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": []
+    },
+    {
+      "id": "day-2",
+      "dayNumber": 2,
+      "date": "2026-02-01",
+      "dateFormatted": "Sunday, February 1, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": []
+    },
+    {
+      "id": "day-3",
+      "dayNumber": 3,
+      "date": "2026-02-02",
+      "dateFormatted": "Monday, February 2, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day3-morning",
+          "name": "Morning Session",
+          "time": "9:00-12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day3-task-1",
+              "time": "9:00-10:30",
+              "title": "Reading",
+              "completed": false,
+              "details": [
+                "Book: Razavi \"Fundamentals\" Ch 2.3",
+                "Pages: 50-72 (MOS Device Models, Small-Signal Operation)",
+                "Key concepts:",
+                "  * Small-signal model",
+                "  * Transconductance: g_m = ∂I_D/∂V_GS",
+                "  * Output resistance: r_o = ∂V_DS/∂I_D",
+                "Hand-derive g_m formula:",
+                "  g_m = μCox(W/L)(V_GS - V_T)",
+                "  Also: g_m = √(2μCox(W/L)I_D)"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day3-task-2",
+              "time": "10:30-10:45",
+              "title": "Break",
+              "completed": false,
+              "details": [],
+              "attachments": []
+            },
+            {
+              "id": "day3-task-3",
+              "time": "10:45-12:00",
+              "title": "Practice Problems",
+              "completed": false,
+              "details": [
+                "Solve: Razavi Problems 2.1, 2.3, 2.5",
+                "Show all work in Notion",
+                "Focus on: Given W/L and V_GS, find I_D and g_m"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day3-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-4:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day3-task-4",
+              "time": "1:00-2:30",
+              "title": "Small-Signal Simulation",
+              "completed": false,
+              "details": [
+                "Build in LTspice: Common-source amplifier",
+                "  * NMOS: W=10μm, L=1μm",
+                "  * R_D = 10kΩ (load resistor)",
+                "  * V_DD = 1.8V",
+                "  * V_GS = 0.6V (DC bias)",
+                "  * V_in = small AC signal (10mV amplitude)",
+                "Simulations:",
+                "  1. .op → Check DC operating point",
+                "     Verify: V_DS > V_GS - V_T (saturation?)",
+                "  2. .ac dec 100 1 1G → AC analysis",
+                "     Measure: Low-frequency gain",
+                "  3. Manual g_m calculation:",
+                "     From .op, note I_D",
+                "     Calculate: g_m = √(2μCox(W/L)I_D)",
+                "     Compare to gain: A_v = -g_m × R_D"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day3-task-5",
+              "time": "2:30-3:30",
+              "title": "Verification",
+              "completed": false,
+              "details": [
+                "Does simulation match hand calculation?",
+                "If not, why? (usually process parameters)",
+                "Adjust MOSFET model if needed",
+                "Document discrepancy and resolution"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day3-task-6",
+              "time": "3:30-4:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Lab journal: Small-signal amplifier",
+                "Screenshot: AC response plot",
+                "Table: Calculated vs Simulated g_m"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day3-evening",
+          "name": "Evening Session",
+          "time": "4:00-6:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day3-task-7",
+              "time": "4:00-5:00",
+              "title": "Weekly Review Prep",
+              "completed": false,
+              "details": [
+                "Re-read all week's notes",
+                "Create summary sheet: Key equations and concepts",
+                "Identify weak areas for next week"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day3-task-8",
+              "time": "5:00-6:00",
+              "title": "Video Content",
+              "completed": false,
+              "details": [
+                "Edit Day 2 screen recording",
+                "Add annotations to I-V curves",
+                "Keep it simple (don't over-edit)",
+                "Export draft: week01_mosfet_basics.mp4"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day3-documentation",
+          "name": "Documentation",
+          "time": "6:00-7:00 PM",
+          "duration": 1,
+          "tasks": [
+            {
+              "id": "day3-task-9",
+              "time": "6:00-6:30",
+              "title": "Week 1 Summary in Notion",
+              "completed": false,
+              "details": [
+                "Topics covered: MOSFET structure, I-V, small-signal",
+                "Circuits built: (divider, I-V sweep, CS amp)",
+                "Questions remaining: List for Week 2"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day3-task-10",
+              "time": "6:30-6:45",
+              "title": "Plan Week 2 in detail",
+              "completed": false,
+              "details": [],
+              "attachments": []
+            },
+            {
+              "id": "day3-task-11",
+              "time": "6:45-6:55",
+              "title": "GitHub: Push all week's work",
+              "completed": false,
+              "details": [],
+              "attachments": []
+            },
+            {
+              "id": "day3-task-12",
+              "time": "6:55-7:00",
+              "title": "LinkedIn: Week 1 recap post",
+              "completed": false,
+              "details": [],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "totalDays": 90,
+    "completedDays": 0,
+    "totalHours": 720,
+    "completedHours": 0,
+    "currentStreak": 0,
+    "topics": [
+      "MOSFET Fundamentals",
+      "Small-Signal Analysis",
+      "Amplifier Design",
+      "Simulation & Verification"
+    ]
+  }
+}
