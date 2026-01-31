@@ -14,9 +14,109 @@
       "dayNumber": 1,
       "date": "2026-01-31",
       "dateFormatted": "Saturday, January 31, 2026",
-      "totalHours": 8,
+      "totalHours": 4,
       "completed": false,
-      "sessions": []
+      "sessions": [
+        {
+          "id": "day1-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day1-task-1",
+              "time": "6:00-6:30",
+              "title": "Setup",
+              "completed": false,
+              "details": [
+                "Create GitHub account: github.com/[yourname]",
+                "Create repository: \"analog-ic-journey\"",
+                "Add README.md with journey goals"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day1-task-2",
+              "time": "6:30-7:30",
+              "title": "Reading",
+              "completed": false,
+              "details": [
+                "Book: Razavi \"Fundamentals of Microelectronics\" Ch 1.1-1.3",
+                "Pages: 1-25 (Introduction to Microelectronics)",
+                "Focus: Why analog matters, basic semiconductor physics"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day1-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day1-task-3",
+              "time": "7:00-8:00",
+              "title": "Software Installation",
+              "completed": false,
+              "details": [
+                "Download and install LTspice XVII from analog.com/ltspice",
+                "Complete LTspice tutorial (Help → Examples)",
+                "Run example schematic: RC circuit",
+                "Familiarize with: component placement, wiring, simulation commands"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day1-task-4",
+              "time": "8:00-8:45",
+              "title": "First Simulation",
+              "completed": false,
+              "details": [
+                "Build: Voltage divider (10kΩ, 10kΩ, 5V source)",
+                "Simulate: .op (DC operating point)",
+                "Verify: Middle node = 2.5V",
+                "Screenshot and save: day01_first_simulation.png"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day1-task-5",
+              "time": "8:45-9:00",
+              "title": "Lab Journal",
+              "completed": false,
+              "details": [
+                "Create lab journal document",
+                "Document: What you built, results, screenshots",
+                "Note key learning: \"LTspice basics\""
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day1-documentation",
+          "name": "Documentation",
+          "time": "9:00-9:30 PM",
+          "duration": 0.5,
+          "tasks": [
+            {
+              "id": "day1-task-6",
+              "time": "9:00-9:30",
+              "title": "GitHub Commit",
+              "completed": false,
+              "details": [
+                "Create folder: /notes/week01/",
+                "Add file: day01_notes.md with today's notes",
+                "Add screenshot to /circuits/week01/",
+                "Commit message: \"Day 1: Introduction and first simulation\""
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "day-2",
@@ -25,7 +125,137 @@
       "dateFormatted": "Sunday, February 1, 2026",
       "totalHours": 8,
       "completed": false,
-      "sessions": []
+      "sessions": [
+        {
+          "id": "day2-morning",
+          "name": "Morning Session",
+          "time": "9:00-12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day2-task-1",
+              "time": "9:00-10:30",
+              "title": "Reading",
+              "completed": false,
+              "details": [
+                "Book: Razavi \"Fundamentals\" Ch 2.1-2.2",
+                "Pages: 27-50 (MOS Device Physics, I-V Characteristics)",
+                "Key concepts:",
+                "  * MOSFET structure (gate, source, drain, body)",
+                "  * Three regions: cutoff, triode, saturation",
+                "  * Equations: I_D = f(V_GS, V_DS)",
+                "Hand-draw: MOSFET cross-section",
+                "Copy key equations into notes"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day2-task-2",
+              "time": "10:30-10:45",
+              "title": "Break",
+              "completed": false,
+              "details": [],
+              "attachments": []
+            },
+            {
+              "id": "day2-task-3",
+              "time": "10:45-12:00",
+              "title": "Video Lecture",
+              "completed": false,
+              "details": [
+                "Watch: Ali Hajimiri Caltech EE105 Lecture 3",
+                "YouTube: Search \"Hajimiri Lecture 3 MOSFET\"",
+                "Duration: ~50 minutes",
+                "Note timestamps of key concepts",
+                "Take Pass 1 notes (timestamps only)"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day2-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-4:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day2-task-4",
+              "time": "1:00-2:30",
+              "title": "LTspice Practice - MOSFET I-V Curves",
+              "completed": false,
+              "details": [
+                "Create MOSFET I-V curve simulation",
+                "Circuit: NMOS with V_GS=0.6V, sweep V_DS",
+                "Simulation command: .dc V_DS 0 1.8 0.01 V_GS 0.3 0.9 0.1",
+                "Run and observe: Family of I-V curves",
+                "Screenshot: Annotate regions (triode, saturation)"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day2-task-5",
+              "time": "2:30-3:30",
+              "title": "Analysis",
+              "completed": false,
+              "details": [
+                "Identify on plot: triode and saturation regions",
+                "Find V_DSsat for each V_GS",
+                "Compare to textbook Figure 2.8 (Razavi)",
+                "Document observations in lab journal"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day2-task-6",
+              "time": "3:30-4:00",
+              "title": "Organized Documentation",
+              "completed": false,
+              "details": [
+                "Save LTspice file: /circuits/week01/day02_mosfet_iv.asc",
+                "Export plot data: File → Export",
+                "Create comparison: Theory vs Simulation",
+                "Add to GitHub"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day2-evening",
+          "name": "Evening Session",
+          "time": "4:00-6:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day2-task-7",
+              "time": "4:00-5:00",
+              "title": "Video Content Planning",
+              "completed": false,
+              "details": [
+                "Review week's topic: MOSFET basics",
+                "Outline first video structure",
+                "Screen record: Simulation process (don't edit yet)",
+                "Save recording: /content/week01/raw_footage.mp4"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day2-task-8",
+              "time": "5:00-6:00",
+              "title": "Deep Review",
+              "completed": false,
+              "details": [
+                "Re-read today's textbook pages",
+                "Watch Hajimiri lecture segments marked \"important\"",
+                "Create visual concept map: MOSFET operation",
+                "Self-quiz: Explain saturation condition without notes"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "day-3",
@@ -217,6 +447,1856 @@
               "title": "LinkedIn: Week 1 recap post",
               "completed": false,
               "details": [],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-4",
+      "dayNumber": 4,
+      "date": "2026-02-03",
+      "dateFormatted": "Tuesday, February 3, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day4-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day4-task-1",
+              "time": "6:00-6:15",
+              "title": "Review",
+              "completed": false,
+              "details": [
+                "Re-read Week 1 summary",
+                "Quiz yourself on g_m and r_o"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day4-task-2",
+              "time": "6:15-7:30",
+              "title": "Reading - Body Effect & λ",
+              "completed": false,
+              "details": [
+                "Book: Razavi \"Fundamentals\" Ch 2.4",
+                "Pages: 72-88 (Body Effect, Channel-Length Modulation)",
+                "Key concepts: Body effect, λ parameter, r_o = 1/(λI_D)"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day4-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day4-task-3",
+              "time": "7:00-8:30",
+              "title": "Simulation - Output Resistance",
+              "completed": false,
+              "details": [
+                "Build circuit to measure r_o",
+                "Sweep V_DS in saturation, plot I_D vs V_DS",
+                "Measure r_o = ΔV_DS / ΔI_D",
+                "Vary L: 0.5µm, 1µm, 2µm, 5µm",
+                "Observe: Longer L → higher r_o"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day4-task-4",
+              "time": "8:30-9:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Lab journal: Output resistance measurement",
+                "Key finding: Longer channel → better current source"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-5",
+      "dayNumber": 5,
+      "date": "2026-02-04",
+      "dateFormatted": "Wednesday, February 4, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day5-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day5-task-1",
+              "time": "6:00-7:00",
+              "title": "Reading - Single-Stage Amplifiers",
+              "completed": false,
+              "details": [
+                "Book: Razavi \"Fundamentals\" Ch 3.1-3.2",
+                "Pages: 89-110 (CS, CG, CD Configurations)",
+                "Note trade-offs: Gain vs input/output impedance"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day5-task-2",
+              "time": "7:00-7:30",
+              "title": "Video - Jordan Edmunds CS Amp",
+              "completed": false,
+              "details": [
+                "Watch: Jordan Edmunds \"Common Source Amplifier\"",
+                "Take Pass 2 notes (detailed)"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day5-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day5-task-3",
+              "time": "7:00-8:45",
+              "title": "Design Exercise - CS Amp Gain=-10",
+              "completed": false,
+              "details": [
+                "Design CS amplifier for gain = -10",
+                "V_DD = 1.8V, I_D = 100µA",
+                "Calculate g_m, then W/L",
+                "Build in LTspice and verify"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day5-task-4",
+              "time": "8:45-9:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Design process documented",
+                "Create methodology: Specs → g_m → W/L → Verify"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-6",
+      "dayNumber": 6,
+      "date": "2026-02-05",
+      "dateFormatted": "Thursday, February 5, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day6-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day6-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - CG and CD Configurations",
+              "completed": false,
+              "details": [
+                "Book: Razavi \"Fundamentals\" Ch 3.2-3.3",
+                "Pages: 110-135",
+                "Compare CS, CG, CD topologies",
+                "Create comparison table in notes"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day6-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day6-task-2",
+              "time": "7:00-8:30",
+              "title": "Build All Three Topologies",
+              "completed": false,
+              "details": [
+                "Common-Source, Common-Gate, Common-Drain",
+                "Measure: Voltage gain, Z_in, Z_out for each",
+                "Create comparison table"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day6-task-3",
+              "time": "8:30-9:00",
+              "title": "Amplifier Selection Guide",
+              "completed": false,
+              "details": [
+                "Document decision flowchart: when to use each topology"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-7",
+      "dayNumber": 7,
+      "date": "2026-02-06",
+      "dateFormatted": "Friday, February 6, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day7-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day7-task-1",
+              "time": "6:00-7:30",
+              "title": "Review and Problems",
+              "completed": false,
+              "details": [
+                "Review all Week 2 material",
+                "Solve: Razavi Problems 3.1, 3.4, 3.7, 3.9"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day7-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day7-task-2",
+              "time": "7:00-8:30",
+              "title": "Frequency Response Introduction",
+              "completed": false,
+              "details": [
+                "Read: Razavi Ch 3.4 (preview)",
+                "Simulate: CS amp with 5pF load capacitor",
+                "Identify -3dB frequency",
+                "Calculate: f_-3dB = 1/(2πR_outC_L)"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day7-task-3",
+              "time": "8:30-9:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Lab journal: Frequency response basics",
+                "Note: Capacitance limits bandwidth"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-8",
+      "dayNumber": 8,
+      "date": "2026-02-07",
+      "dateFormatted": "Saturday, February 7, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day8-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day8-task-1",
+              "time": "6:00-7:30",
+              "title": "Comprehensive Review",
+              "completed": false,
+              "details": [
+                "Create Week 2 summary document",
+                "Self-quiz: Design each amplifier type from memory"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day8-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day8-task-2",
+              "time": "7:00-8:30",
+              "title": "Design Challenge",
+              "completed": false,
+              "details": [
+                "Design CS amplifier: Gain=-15, BW>1MHz, Power<500µW",
+                "V_DD = 1.8V",
+                "Document entire design process",
+                "This is portfolio piece #1"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day8-task-3",
+              "time": "8:30-9:00",
+              "title": "Week 2 Summary",
+              "completed": false,
+              "details": [
+                "Complete summary",
+                "Prepare video footage"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-9",
+      "dayNumber": 9,
+      "date": "2026-02-08",
+      "dateFormatted": "Sunday, February 8, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day9-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day9-task-1",
+              "time": "9:00-12:00",
+              "title": "Major Project - Amplifier Library",
+              "completed": false,
+              "details": [
+                "Create LTspice library with:",
+                "CS amplifier (3 variants), CG amplifier (2), CD amplifier (2)",
+                "For each: Schematic, Symbol, Test bench, Performance table"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day9-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-4:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day9-task-2",
+              "time": "1:00-4:00",
+              "title": "Cadence Introduction",
+              "completed": false,
+              "details": [
+                "Install/access Cadence Virtuoso",
+                "Follow basic tutorial: Create library, cell view, schematic",
+                "If no access: Practice advanced LTspice features"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day9-evening",
+          "name": "Evening Session",
+          "time": "4:00-8:00 PM",
+          "duration": 4,
+          "tasks": [
+            {
+              "id": "day9-task-3",
+              "time": "4:00-6:00",
+              "title": "Video Content",
+              "completed": false,
+              "details": [
+                "Edit Week 1 video: MOSFET Basics",
+                "Export: week01_mosfet_basics.mp4"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day9-task-4",
+              "time": "6:00-8:00",
+              "title": "GitHub & Community",
+              "completed": false,
+              "details": [
+                "Clean up repository structure",
+                "Reddit: Post in r/chipdesign"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-10",
+      "dayNumber": 10,
+      "date": "2026-02-09",
+      "dateFormatted": "Monday, February 9, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day10-morning",
+          "name": "Morning Session",
+          "time": "9:00-12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day10-task-1",
+              "time": "9:00-11:00",
+              "title": "Video Editing",
+              "completed": false,
+              "details": [
+                "Edit Week 2 video: Amplifier Topologies Compared"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day10-task-2",
+              "time": "11:00-12:00",
+              "title": "Content Publishing",
+              "completed": false,
+              "details": [
+                "Upload both videos to YouTube with descriptions and tags"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day10-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-5:00 PM",
+          "duration": 4,
+          "tasks": [
+            {
+              "id": "day10-task-3",
+              "time": "1:00-3:00",
+              "title": "Community Engagement",
+              "completed": false,
+              "details": [
+                "Twitter/X posting",
+                "Engage with analog design community"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day10-task-4",
+              "time": "3:00-5:00",
+              "title": "Week 3 Planning",
+              "completed": false,
+              "details": [
+                "Preview: Razavi Ch 3.4-3.6 (Current Mirrors)",
+                "Create Week 3 detailed schedule"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-11",
+      "dayNumber": 11,
+      "date": "2026-02-10",
+      "dateFormatted": "Tuesday, February 10, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day11-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day11-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - Current Mirrors",
+              "completed": false,
+              "details": [
+                "Book: Razavi \"Fundamentals\" Ch 3.4",
+                "Pages: 136-158",
+                "Key concepts: Why current mirrors, basic operation, current matching"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day11-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day11-task-2",
+              "time": "7:00-8:30",
+              "title": "First Current Mirror Simulation",
+              "completed": false,
+              "details": [
+                "Build basic NMOS current mirror in LTspice",
+                "M1, M2: W=10µm, L=2µm, I_ref=100µA",
+                "Tests: .op analysis, DC sweep V_out, measure r_o"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day11-task-3",
+              "time": "8:30-9:00",
+              "title": "Analysis & Documentation",
+              "completed": false,
+              "details": [
+                "Compare to hand calculation",
+                "Note: Simple mirror has moderate r_o"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-12",
+      "dayNumber": 12,
+      "date": "2026-02-11",
+      "dateFormatted": "Wednesday, February 11, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day12-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day12-task-1",
+              "time": "6:00-6:30",
+              "title": "Review",
+              "completed": false,
+              "details": [
+                "Re-read yesterday's lab journal",
+                "Quiz: Draw current mirror from memory"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day12-task-2",
+              "time": "6:30-7:30",
+              "title": "Video Lecture - Hajimiri Current Mirrors",
+              "completed": false,
+              "details": [
+                "Watch Hajimiri Lecture 12",
+                "Focus on cascode improvement section"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day12-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day12-task-3",
+              "time": "7:00-8:30",
+              "title": "Current Ratio Experiment",
+              "completed": false,
+              "details": [
+                "Vary M2 W/L ratios",
+                "Test: 1:1, 1:2, 2:1 ratios",
+                "Verify I_out matches expected ratio"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day12-task-4",
+              "time": "8:30-9:00",
+              "title": "Mismatch Analysis Introduction",
+              "completed": false,
+              "details": [
+                "Read about process variations",
+                "Preview Monte Carlo simulation"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-13",
+      "dayNumber": 13,
+      "date": "2026-02-12",
+      "dateFormatted": "Thursday, February 12, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day13-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day13-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - Cascode Mirror",
+              "completed": false,
+              "details": [
+                "Book: Razavi Ch 3.4.3-3.4.4",
+                "Pages: 158-175",
+                "Key: r_out = g_m × r_o² derivation",
+                "Trade-off: High r_out vs headroom cost"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day13-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day13-task-2",
+              "time": "7:00-8:30",
+              "title": "Cascode Current Mirror Design",
+              "completed": false,
+              "details": [
+                "Build 4-transistor cascode mirror",
+                "Compare r_out to simple mirror",
+                "Measure headroom cost"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day13-task-3",
+              "time": "8:30-9:00",
+              "title": "Analysis",
+              "completed": false,
+              "details": [
+                "Did r_out improve by ~100×?",
+                "Document when to use cascode"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-14",
+      "dayNumber": 14,
+      "date": "2026-02-13",
+      "dateFormatted": "Friday, February 13, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day14-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day14-task-1",
+              "time": "6:00-7:00",
+              "title": "Reading - Wide-Swing Cascode",
+              "completed": false,
+              "details": [
+                "Book: Razavi Ch 3.4.5",
+                "Pages: 175-185",
+                "When to use: Low-voltage designs (<1.5V)"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day14-task-2",
+              "time": "7:00-7:30",
+              "title": "Problems",
+              "completed": false,
+              "details": [
+                "Solve: Razavi Problems 3.12, 3.14, 3.16"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day14-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day14-task-3",
+              "time": "7:00-8:30",
+              "title": "Monte Carlo Simulation",
+              "completed": false,
+              "details": [
+                "Run 50 iterations with device mismatch",
+                "Plot histogram of I_out",
+                "Test effect of L on matching"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day14-task-4",
+              "time": "8:30-9:00",
+              "title": "Analysis",
+              "completed": false,
+              "details": [
+                "Key finding: Longer L → better matching",
+                "Design rule: Use L ≥ 2µm for critical mirrors"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-15",
+      "dayNumber": 15,
+      "date": "2026-02-14",
+      "dateFormatted": "Saturday, February 14, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day15-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day15-task-1",
+              "time": "6:00-7:30",
+              "title": "Comprehensive Review",
+              "completed": false,
+              "details": [
+                "Create Current Mirror Design Guide",
+                "Self-quiz: Design 200µA mirror from specs"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day15-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day15-task-2",
+              "time": "7:00-8:30",
+              "title": "Current Mirror Library",
+              "completed": false,
+              "details": [
+                "Create LTspice symbols: Simple NMOS/PMOS, Cascode NMOS/PMOS"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day15-task-3",
+              "time": "8:30-9:00",
+              "title": "Week 3 Summary",
+              "completed": false,
+              "details": [
+                "Complete documentation",
+                "Prepare video content"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-16",
+      "dayNumber": 16,
+      "date": "2026-02-15",
+      "dateFormatted": "Sunday, February 15, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day16-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day16-task-1",
+              "time": "9:00-12:00",
+              "title": "Design Challenge - Precision Current Reference",
+              "completed": false,
+              "details": [
+                "Specs: 100µA ± 1%, r_out >10MΩ, V_DD=1.8V",
+                "Use cascode topology",
+                "Monte Carlo and temperature verification"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day16-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-4:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day16-task-2",
+              "time": "1:00-4:00",
+              "title": "Cadence Practice",
+              "completed": false,
+              "details": [
+                "Rebuild current mirror in Cadence Virtuoso",
+                "Compare to LTspice results"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day16-evening",
+          "name": "Evening Session",
+          "time": "4:00-8:00 PM",
+          "duration": 4,
+          "tasks": [
+            {
+              "id": "day16-task-3",
+              "time": "4:00-6:00",
+              "title": "Video - Current Mirrors Explained",
+              "completed": false,
+              "details": [
+                "Edit and export: week03_current_mirrors.mp4"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day16-task-4",
+              "time": "6:00-8:00",
+              "title": "Portfolio & Community",
+              "completed": false,
+              "details": [
+                "Update GitHub",
+                "Reddit post on precision current source"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-17",
+      "dayNumber": 17,
+      "date": "2026-02-16",
+      "dateFormatted": "Monday, February 16, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day17-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day17-task-1",
+              "time": "9:00-11:00",
+              "title": "Month 1 Comprehensive Review",
+              "completed": false,
+              "details": [
+                "Create Month 1 Master Summary",
+                "Self-assessment quiz on all topics"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day17-task-2",
+              "time": "11:00-12:00",
+              "title": "Video Publishing",
+              "completed": false,
+              "details": [
+                "Upload Week 3 video",
+                "Create playlist: Analog IC Design Journey"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day17-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-5:00 PM",
+          "duration": 4,
+          "tasks": [
+            {
+              "id": "day17-task-3",
+              "time": "1:00-3:00",
+              "title": "Community Activity",
+              "completed": false,
+              "details": [
+                "Engage with comments",
+                "Twitter/X thread on Month 1 achievements"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day17-task-4",
+              "time": "3:00-5:00",
+              "title": "Month 2 Planning",
+              "completed": false,
+              "details": [
+                "Preview: Differential pairs, two-stage op-amp",
+                "Create Week 4 schedule"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-18",
+      "dayNumber": 18,
+      "date": "2026-02-17",
+      "dateFormatted": "Tuesday, February 17, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day18-morning",
+          "name": "Extended Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day18-task-1",
+              "time": "9:00-10:30",
+              "title": "Reading - Differential Pair",
+              "completed": false,
+              "details": [
+                "Book: Razavi Ch 4.1-4.2",
+                "Pages: 186-215",
+                "Key: A_dm, A_cm, CMRR concepts"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day18-task-2",
+              "time": "10:45-12:00",
+              "title": "Video Lecture - Hajimiri Differential",
+              "completed": false,
+              "details": [
+                "Watch Hajimiri Lecture 14",
+                "Focus on CMRR section"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day18-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-4:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day18-task-3",
+              "time": "1:00-3:00",
+              "title": "First Differential Pair Simulation",
+              "completed": false,
+              "details": [
+                "Build diff pair with resistive load",
+                "M1, M2: 20/2, R_D=10kΩ, I_SS=200µA",
+                "Measure: A_dm, A_cm, CMRR"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day18-task-4",
+              "time": "3:00-4:00",
+              "title": "Detailed Analysis",
+              "completed": false,
+              "details": [
+                "Create results table comparing hand calc vs simulation"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day18-evening",
+          "name": "Evening Session",
+          "time": "4:00-6:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day18-task-5",
+              "time": "4:00-5:30",
+              "title": "Tail Current Source Effect",
+              "completed": false,
+              "details": [
+                "Compare: Resistor, simple mirror, cascode tail",
+                "Measure CMRR for each",
+                "Understand: CMRR ≈ 2 × g_m × r_tail"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day18-task-6",
+              "time": "5:30-6:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Design rule: Use cascode tail for CMRR > 80dB"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-19",
+      "dayNumber": 19,
+      "date": "2026-02-18",
+      "dateFormatted": "Wednesday, February 18, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day19-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day19-task-1",
+              "time": "6:00-7:00",
+              "title": "Reading - Active Load",
+              "completed": false,
+              "details": [
+                "Book: Razavi Ch 4.3",
+                "Pages: 215-235",
+                "Key: Why active load >> resistive load"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day19-task-2",
+              "time": "7:00-7:30",
+              "title": "Problems",
+              "completed": false,
+              "details": [
+                "Solve: Razavi Problems 4.1, 4.3, 4.5"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day19-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day19-task-3",
+              "time": "7:00-8:30",
+              "title": "Diff Pair with Active Load",
+              "completed": false,
+              "details": [
+                "Build with PMOS current mirror load",
+                "Compare gain: 40-50dB vs ~20dB resistive",
+                "Understand trade-off: Higher gain, reduced swing"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day19-task-4",
+              "time": "8:30-9:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Side-by-side comparison with resistive load"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-20",
+      "dayNumber": 20,
+      "date": "2026-02-19",
+      "dateFormatted": "Thursday, February 19, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day20-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day20-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - Frequency Response & ICMR",
+              "completed": false,
+              "details": [
+                "Book: Razavi Ch 4.4",
+                "Pages: 235-255",
+                "Calculate ICMR limits"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day20-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day20-task-2",
+              "time": "7:00-8:30",
+              "title": "Frequency Response Analysis",
+              "completed": false,
+              "details": [
+                "AC analysis with C_L variations",
+                "Create Bode plots",
+                "Identify dominant pole"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day20-task-3",
+              "time": "8:30-9:00",
+              "title": "ICMR Test",
+              "completed": false,
+              "details": [
+                "DC sweep V_CM",
+                "Document valid input range"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-21",
+      "dayNumber": 21,
+      "date": "2026-02-20",
+      "dateFormatted": "Friday, February 20, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day21-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day21-task-1",
+              "time": "6:00-7:00",
+              "title": "Review Week 4",
+              "completed": false,
+              "details": [
+                "Create summary sheet on diff pairs"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day21-task-2",
+              "time": "7:00-7:30",
+              "title": "Razavi Video",
+              "completed": false,
+              "details": [
+                "Watch Razavi's differential amplifier lectures"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day21-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day21-task-3",
+              "time": "7:00-8:30",
+              "title": "Design Challenge",
+              "completed": false,
+              "details": [
+                "Specs: Gain>45dB, CMRR>70dB, BW>1MHz, Power<2mW",
+                "Design, simulate, verify all specs"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day21-task-4",
+              "time": "8:30-9:00",
+              "title": "Design Report (Portfolio #2)",
+              "completed": false,
+              "details": [
+                "Complete differential amplifier design report"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-22",
+      "dayNumber": 22,
+      "date": "2026-02-21",
+      "dateFormatted": "Saturday, February 21, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day22-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day22-task-1",
+              "time": "6:00-7:30",
+              "title": "Comprehensive Review",
+              "completed": false,
+              "details": [
+                "Self-quiz: Draw diff pair with active load from memory"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day22-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day22-task-2",
+              "time": "7:00-8:30",
+              "title": "Diff Pair Library Creation",
+              "completed": false,
+              "details": [
+                "Create LTspice symbols for resistive, active load, cascode tail variants"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day22-task-3",
+              "time": "8:30-9:00",
+              "title": "Prep for Week 5",
+              "completed": false,
+              "details": [
+                "Preview: Two-stage op-amp design",
+                "Read: Razavi CMOS IC Ch 9.1"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-23",
+      "dayNumber": 23,
+      "date": "2026-02-22",
+      "dateFormatted": "Sunday, February 22, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day23-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day23-task-1",
+              "time": "9:00-12:00",
+              "title": "Major Project - High-Performance Diff Amp",
+              "completed": false,
+              "details": [
+                "Goal: >50dB gain, >80dB CMRR",
+                "Try cascoded input, cascoded load",
+                "Full characterization: DC, AC, Transient, Monte Carlo"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day23-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-4:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day23-task-2",
+              "time": "1:00-4:00",
+              "title": "Cadence Work",
+              "completed": false,
+              "details": [
+                "Recreate diff pair in Virtuoso",
+                "Run corner analysis"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day23-evening",
+          "name": "Evening Session",
+          "time": "4:00-8:00 PM",
+          "duration": 4,
+          "tasks": [
+            {
+              "id": "day23-task-3",
+              "time": "4:00-6:00",
+              "title": "Video Editing",
+              "completed": false,
+              "details": [
+                "Edit: Differential Amplifiers Explained",
+                "Export: week04_differential_amplifiers.mp4"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day23-task-4",
+              "time": "6:00-8:00",
+              "title": "GitHub & Community",
+              "completed": false,
+              "details": [
+                "Add Week 4 projects",
+                "Reddit/Twitter posts"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-24",
+      "dayNumber": 24,
+      "date": "2026-02-23",
+      "dateFormatted": "Monday, February 23, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day24-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day24-task-1",
+              "time": "9:00-11:00",
+              "title": "Week 4 Deep Review",
+              "completed": false,
+              "details": [
+                "Create concept map",
+                "Practice problems for interview prep"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day24-task-2",
+              "time": "11:00-12:00",
+              "title": "Video Publishing",
+              "completed": false,
+              "details": [
+                "Upload Week 4 video to YouTube"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day24-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-5:00 PM",
+          "duration": 4,
+          "tasks": [
+            {
+              "id": "day24-task-3",
+              "time": "1:00-2:30",
+              "title": "Community Engagement",
+              "completed": false,
+              "details": [
+                "Respond to comments",
+                "Engage with new posts"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day24-task-4",
+              "time": "2:30-5:00",
+              "title": "Week 5 Detailed Planning",
+              "completed": false,
+              "details": [
+                "Topic: Two-Stage Op-Amp",
+                "Read ahead: Razavi CMOS IC Ch 9.1-9.2"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-25",
+      "dayNumber": 25,
+      "date": "2026-02-24",
+      "dateFormatted": "Tuesday, February 24, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day25-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day25-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - Op-Amp Introduction",
+              "completed": false,
+              "details": [
+                "Book: Razavi CMOS IC Ch 9.1-9.2",
+                "Pages: 297-325",
+                "Key specs: DC gain, GBW, Phase margin, Slew rate"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day25-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day25-task-2",
+              "time": "7:00-8:30",
+              "title": "Paper Reading - Classic Op-Amp",
+              "completed": false,
+              "details": [
+                "Hogervorst et al. IEEE JSSC 1994",
+                "Apply 3-Pass reading method"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day25-task-3",
+              "time": "8:30-9:00",
+              "title": "Define Op-Amp Specs",
+              "completed": false,
+              "details": [
+                "Target: >60dB gain, >10MHz GBW, >60° PM, <5mW"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-26",
+      "dayNumber": 26,
+      "date": "2026-02-25",
+      "dateFormatted": "Wednesday, February 25, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day26-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day26-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - Input Stage Design",
+              "completed": false,
+              "details": [
+                "Book: Razavi CMOS IC Ch 9.3",
+                "Pages: 325-350",
+                "Design equations for g_m and first stage gain"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day26-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day26-task-2",
+              "time": "7:00-8:45",
+              "title": "Design First Stage",
+              "completed": false,
+              "details": [
+                "Input diff pair with active load and cascode tail",
+                "Size M1-M5 based on calculations",
+                "Target: 40-50dB first stage gain"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day26-task-3",
+              "time": "8:45-9:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Lab journal: Op-Amp First Stage Design"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-27",
+      "dayNumber": 27,
+      "date": "2026-02-26",
+      "dateFormatted": "Thursday, February 26, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day27-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day27-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - Second Stage Design",
+              "completed": false,
+              "details": [
+                "Book: Razavi CMOS IC Ch 9.4",
+                "Pages: 350-375",
+                "CS second stage for additional gain"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day27-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day27-task-2",
+              "time": "7:00-8:45",
+              "title": "Design Second Stage",
+              "completed": false,
+              "details": [
+                "Add M6 (CS amp) and M7 (PMOS load)",
+                "Connect to first stage",
+                "Observe two-pole instability (expected!)"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day27-task-3",
+              "time": "8:45-9:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Note: Stability problem to solve tomorrow"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-28",
+      "dayNumber": 28,
+      "date": "2026-02-27",
+      "dateFormatted": "Friday, February 27, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day28-morning",
+          "name": "Morning Session - CRITICAL",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day28-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - Miller Compensation",
+              "completed": false,
+              "details": [
+                "Book: Razavi CMOS IC Ch 9.5",
+                "Pages: 375-405",
+                "Key: Pole-splitting, C_c, R_z, RHP zero"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day28-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day28-task-2",
+              "time": "7:00-8:45",
+              "title": "Implement Miller Compensation",
+              "completed": false,
+              "details": [
+                "Add C_c and R_z to op-amp",
+                "Iterate to achieve PM > 60°",
+                "Create optimization table"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day28-task-3",
+              "time": "8:45-9:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Before/after Bode plots",
+                "Key insight: Miller cap creates single-pole response"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-29",
+      "dayNumber": 29,
+      "date": "2026-02-28",
+      "dateFormatted": "Saturday, February 28, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day29-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day29-task-1",
+              "time": "6:00-7:30",
+              "title": "Complete Design Review",
+              "completed": false,
+              "details": [
+                "Review entire op-amp",
+                "Solve: Razavi Ch 9 Problems 9.1, 9.3, 9.5, 9.7"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day29-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day29-task-2",
+              "time": "7:00-8:45",
+              "title": "Complete Characterization",
+              "completed": false,
+              "details": [
+                "Measure: DC Gain, GBW, PM, Slew Rate, Settling, CMRR, PSRR",
+                "Create comprehensive results table"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day29-task-3",
+              "time": "8:45-9:00",
+              "title": "Op-Amp Report (Portfolio #3)",
+              "completed": false,
+              "details": [
+                "Complete characterization report - major portfolio piece"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-30",
+      "dayNumber": 30,
+      "date": "2026-03-01",
+      "dateFormatted": "Sunday, March 1, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day30-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day30-task-1",
+              "time": "9:00-12:00",
+              "title": "Op-Amp Optimization",
+              "completed": false,
+              "details": [
+                "Power vs Performance trade-offs",
+                "Noise analysis",
+                "Monte Carlo for yield"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day30-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-4:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day30-task-2",
+              "time": "1:00-3:00",
+              "title": "Create Complete Design Package",
+              "completed": false,
+              "details": [
+                "Professional documentation PDF",
+                "Architecture, procedure, results, insights"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day30-task-3",
+              "time": "3:00-4:00",
+              "title": "Cadence Implementation",
+              "completed": false,
+              "details": [
+                "Rebuild op-amp in Cadence Virtuoso"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day30-evening",
+          "name": "Evening Session",
+          "time": "4:00-8:00 PM",
+          "duration": 4,
+          "tasks": [
+            {
+              "id": "day30-task-4",
+              "time": "4:00-6:00",
+              "title": "Major Video - Op-Amp from Scratch",
+              "completed": false,
+              "details": [
+                "15-20 min video covering full design",
+                "Export: week05-06_opamp_design.mp4"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day30-task-5",
+              "time": "6:00-7:00",
+              "title": "GitHub Major Update",
+              "completed": false,
+              "details": [
+                "Create dedicated /projects/two-stage-opamp/ folder"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day30-task-6",
+              "time": "7:00-8:00",
+              "title": "Community - Major Post",
+              "completed": false,
+              "details": [
+                "Reddit: Complete op-amp design post",
+                "Twitter thread on frequency compensation"
+              ],
               "attachments": []
             }
           ]
