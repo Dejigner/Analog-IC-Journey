@@ -39,11 +39,12 @@
               "id": "day1-task-2",
               "time": "6:30-7:30",
               "title": "Reading",
-              "completed": false,
+              "completed": true,
               "details": [
                 "Book: Razavi \"Fundamentals of Microelectronics\" Ch 1.1-1.3",
                 "Pages: 1-25 (Introduction to Microelectronics)",
-                "Focus: Why analog matters, basic semiconductor physics"
+                "Focus: Why analog matters, basic semiconductor physics",
+                "COMMENT: Read 1-18 - all CH1 - No practice problems"
               ],
               "attachments": []
             }
