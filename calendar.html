@@ -499,27 +499,19 @@
         function CalendarView({ days, onDaySelect, currentMonth, onMonthChange }) {
             const [hoveredDay, setHoveredDay] = useState(null);
             const [currentWeekStart, setCurrentWeekStart] = useState(() => {
-                // Start with the first day of the current month
-                const firstOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-                // Find the Sunday of that week
-                const dayOfWeek = firstOfMonth.getDay();
-                const sunday = new Date(firstOfMonth);
-                sunday.setDate(firstOfMonth.getDate() - dayOfWeek);
+                // Start with today's date and find the Sunday of this week
+                const today = new Date();
+                const dayOfWeek = today.getDay();
+                const sunday = new Date(today);
+                sunday.setDate(today.getDate() - dayOfWeek);
+                // Reset time to midnight
+                sunday.setHours(0, 0, 0, 0);
                 return sunday;
             });
 
             useEffect(() => {
                 if (window.lucide) window.lucide.createIcons();
             }, [currentMonth, currentWeekStart]);
-
-            // Update week start when month changes
-            useEffect(() => {
-                const firstOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-                const dayOfWeek = firstOfMonth.getDay();
-                const sunday = new Date(firstOfMonth);
-                sunday.setDate(firstOfMonth.getDate() - dayOfWeek);
-                setCurrentWeekStart(sunday);
-            }, [currentMonth]);
 
             const getChallengeDayForDate = (year, month, dayOfMonth) => {
                 const date = new Date(year, month, dayOfMonth);
@@ -542,22 +534,22 @@
             const getWeekDays = () => {
                 const weekDays = [];
                 for (let i = 0; i < 7; i++) {
-                    const date = new Date(currentWeekStart);
-                    date.setDate(currentWeekStart.getDate() + i);
+                    const date = new Date(currentWeekStart.getTime());
+                    date.setDate(date.getDate() + i);
                     weekDays.push(date);
                 }
                 return weekDays;
             };
 
             const navigateWeek = (direction) => {
-                const newStart = new Date(currentWeekStart);
-                newStart.setDate(currentWeekStart.getDate() + (direction * 7));
+                const newStart = new Date(currentWeekStart.getTime());
+                newStart.setDate(newStart.getDate() + (direction * 7));
                 setCurrentWeekStart(newStart);
             };
 
             const getWeekRangeText = () => {
-                const weekEnd = new Date(currentWeekStart);
-                weekEnd.setDate(currentWeekStart.getDate() + 6);
+                const weekEnd = new Date(currentWeekStart.getTime());
+                weekEnd.setDate(weekEnd.getDate() + 6);
                 const options = { month: 'short', day: 'numeric' };
                 return `${currentWeekStart.toLocaleDateString('en-US', options)} - ${weekEnd.toLocaleDateString('en-US', options)}`;
             };
