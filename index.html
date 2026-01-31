@@ -199,6 +199,76 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
+        /* Mobile Responsive Calendar */
+        @media (max-width: 768px) {
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr) !important;
+                gap: 0.25rem !important;
+            }
+
+            .calendar-day {
+                padding: 0.25rem !important;
+                min-height: 50px !important;
+            }
+
+            .calendar-day-number {
+                font-size: 1rem !important;
+            }
+
+            .calendar-day-label {
+                font-size: 0.5rem !important;
+            }
+
+            .calendar-day-tag {
+                font-size: 0.5rem !important;
+            }
+
+            .calendar-controls {
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+
+            .calendar-controls button {
+                padding: 0.4rem 0.8rem !important;
+                font-size: 0.8rem !important;
+            }
+
+            .calendar-controls h2 {
+                font-size: 1.1rem !important;
+            }
+
+            .calendar-weekdays {
+                gap: 0.25rem !important;
+            }
+
+            .calendar-weekday {
+                font-size: 0.65rem !important;
+            }
+
+            .legend-container {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+
+            .container {
+                padding: 0 0.75rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-day {
+                min-height: 40px !important;
+            }
+
+            .calendar-day-number {
+                font-size: 0.85rem !important;
+            }
+
+            .calendar-day-tag {
+                display: none !important;
+            }
+        }
+
         /* Loading State */
         .loading {
             display: flex;
@@ -245,6 +315,62 @@
             const [selectedDay, setSelectedDay] = useState(null);
             const [isLoading, setIsLoading] = useState(true);
 
+            // Parse URL hash to get initial view
+            const parseHash = () => {
+                const hash = window.location.hash.slice(1); // Remove #
+                if (!hash) return { view: 'landing', dayNumber: null };
+
+                if (hash.startsWith('day-')) {
+                    const dayNum = parseInt(hash.replace('day-', ''));
+                    return { view: 'task', dayNumber: isNaN(dayNum) ? null : dayNum };
+                }
+
+                if (['landing', 'calendar', 'portfolio'].includes(hash)) {
+                    return { view: hash, dayNumber: null };
+                }
+
+                return { view: 'landing', dayNumber: null };
+            };
+
+            // Custom setCurrentView that also updates URL
+            const navigateTo = (view, dayNumber = null) => {
+                if (view === 'task' && dayNumber !== null) {
+                    window.history.pushState(null, '', `#day-${dayNumber}`);
+                } else if (view === 'landing') {
+                    window.history.pushState(null, '', window.location.pathname);
+                } else {
+                    window.history.pushState(null, '', `#${view}`);
+                }
+                setCurrentView(view);
+            };
+
+            // Handle browser back/forward buttons
+            useEffect(() => {
+                const handlePopState = () => {
+                    const { view, dayNumber } = parseHash();
+                    setCurrentView(view);
+                    if (view === 'task' && dayNumber !== null && scheduleData) {
+                        const day = scheduleData.days.find(d => d.dayNumber === dayNumber);
+                        if (day) setSelectedDay(day);
+                    }
+                };
+
+                window.addEventListener('popstate', handlePopState);
+                return () => window.removeEventListener('popstate', handlePopState);
+            }, [scheduleData]);
+
+            // Set initial view from URL hash after data loads
+            useEffect(() => {
+                if (scheduleData) {
+                    const { view, dayNumber } = parseHash();
+                    setCurrentView(view);
+                    if (view === 'task' && dayNumber !== null) {
+                        const day = scheduleData.days.find(d => d.dayNumber === dayNumber);
+                        if (day) setSelectedDay(day);
+                    }
+                }
+            }, [scheduleData]);
+
             useEffect(() => {
                 fetch('data/schedule.json')
                     .then(res => res.json())
@@ -283,13 +409,13 @@
                 <>
                     <Navigation
                         currentView={currentView}
-                        setCurrentView={setCurrentView}
+                        setCurrentView={navigateTo}
                     />
 
                     {currentView === 'landing' && (
                         <LandingPage
                             stats={scheduleData.stats}
-                            setCurrentView={setCurrentView}
+                            setCurrentView={navigateTo}
                         />
                     )}
 
@@ -297,7 +423,7 @@
                         <CalendarView
                             days={scheduleData.days}
                             setSelectedDay={setSelectedDay}
-                            setCurrentView={setCurrentView}
+                            setCurrentView={navigateTo}
                         />
                     )}
 
@@ -926,7 +1052,7 @@
             const handleDayClick = (challengeDay) => {
                 if (challengeDay) {
                     setSelectedDay(challengeDay);
-                    setCurrentView('task');
+                    setCurrentView('task', challengeDay.dayNumber);
                 }
             };
 
@@ -966,7 +1092,7 @@
                             </div>
 
                             {/* Calendar Controls */}
-                            <div style={{
+                            <div className="calendar-controls" style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
@@ -1041,14 +1167,14 @@
                                 border: '1px solid rgba(233, 30, 140, 0.2)'
                             }}>
                                 {/* Weekday Headers */}
-                                <div style={{
+                                <div className="calendar-weekdays" style={{
                                     display: 'grid',
                                     gridTemplateColumns: 'repeat(7, 1fr)',
                                     gap: '1rem',
                                     marginBottom: 'var(--space-md)'
                                 }}>
                                     {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                                        <div key={day} style={{
+                                        <div key={day} className="calendar-weekday" style={{
                                             textAlign: 'center',
                                             fontWeight: 700,
                                             color: 'var(--color-primary)',
@@ -1062,7 +1188,7 @@
                                 </div>
 
                                 {/* Calendar Days */}
-                                <div style={{
+                                <div className="calendar-grid" style={{
                                     display: 'grid',
                                     gridTemplateColumns: 'repeat(7, 1fr)',
                                     gap: '1rem'
@@ -1083,6 +1209,7 @@
                                         return (
                                             <div
                                                 key={dayOfMonth}
+                                                className="calendar-day"
                                                 onClick={() => handleDayClick(challengeDay)}
                                                 onMouseEnter={() => setHoveredDay(dayOfMonth)}
                                                 onMouseLeave={() => setHoveredDay(null)}
@@ -1112,7 +1239,7 @@
                                                 }}
                                             >
                                                 {hasData && (
-                                                    <div style={{
+                                                    <div className="calendar-day-tag" style={{
                                                         fontSize: '0.7rem',
                                                         fontWeight: 700,
                                                         color: 'var(--color-primary)',
@@ -1123,7 +1250,7 @@
                                                     </div>
                                                 )}
 
-                                                <div style={{
+                                                <div className="calendar-day-number" style={{
                                                     fontSize: hasData ? '2rem' : '1.5rem',
                                                     fontWeight: 700,
                                                     fontFamily: 'var(--font-display)',
@@ -1136,7 +1263,7 @@
                                                     {dayOfMonth}
                                                 </div>
 
-                                                <div style={{
+                                                <div className="calendar-day-label" style={{
                                                     fontSize: '0.65rem',
                                                     color: 'var(--color-gray)',
                                                     marginTop: '0.25rem',
@@ -1172,7 +1299,7 @@
                             </div>
 
                             {/* Legend */}
-                            <div style={{
+                            <div className="legend-container" style={{
                                 marginTop: 'var(--space-lg)',
                                 display: 'flex',
                                 gap: 'var(--space-lg)',
