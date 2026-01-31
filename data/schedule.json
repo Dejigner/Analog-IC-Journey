@@ -74,27 +74,31 @@
             {
               "id": "day1-task-4",
               "time": "8:00-8:45",
-              "title": "First Simulation",
-              "completed": false,
+              "title": "LT Spice - Simulation Refreshment",
+              "completed": true,
               "details": [
-                "Build: Voltage divider (10kΩ, 10kΩ, 5V source)",
-                "Simulate: .op (DC operating point)",
-                "Verify: Middle node = 2.5V",
-                "Screenshot and save: day01_first_simulation.png"
+                "Build: New Concept",
+                "Screenshot and save: day01_first_simulation.png",
+                "I learned about Monto Carlo and Simulated it with aa BPF"
               ],
               "attachments": []
             },
             {
               "id": "day1-task-5",
               "time": "8:45-9:00",
-              "title": "Lab Journal",
-              "completed": false,
+              "title": "Lab Journal - Monte Carlo Simulation",
+              "completed": true,
               "details": [
                 "Create lab journal document",
-                "Document: What you built, results, screenshots",
-                "Note key learning: \"LTspice basics\""
+                "Document: What you built, results, screenshots"
               ],
-              "attachments": []
+              "attachments": [
+                {
+                  "type": "pdf",
+                  "name": "Monte Carlo - Analysis Exploration with A Band-Pass Filter",
+                  "url": "assets/portfolio/01_Report_MonteCarlo.pdf"
+                }
+              ]
             }
           ]
         },
