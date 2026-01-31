@@ -430,12 +430,24 @@
                         const totalHours = data.days.reduce((sum, d) => sum + d.totalHours, 0);
                         const completedHours = data.days.filter(d => d.completed).reduce((sum, d) => sum + d.totalHours, 0);
 
+                        // Calculate current streak (consecutive completed days from most recent)
+                        let currentStreak = 0;
+                        const sortedDays = [...data.days].sort((a, b) => new Date(b.date) - new Date(a.date));
+                        for (const day of sortedDays) {
+                            if (day.completed) {
+                                currentStreak++;
+                            } else {
+                                break;
+                            }
+                        }
+
                         data.stats = {
                             ...data.stats,
                             completedDays,
                             totalHours,
                             completedHours,
-                            totalDays: data.days.length
+                            totalDays: data.days.length,
+                            currentStreak
                         };
 
                         setScheduleData(data);
