@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jannah Ahmed - Designing the Unseen</title>
+    <meta name="description"
+        content="90-day analog IC design journey by Jannah Ahmed. From MOSFET physics to working analog circuits.">
+
+    <!-- Fonts - Distinctive Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Chart.js for statistics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+
+    <style>
+        /* CSS Variables - Pink + Black Theme */
+        :root {
+            /* Primary Colors */
+            --color-primary: #E91E8C;
+            --color-primary-light: #FF5BAE;
+            --color-primary-dark: #9D174D;
+            --color-black: #0A0A0A;
+            --color-charcoal: #1F1F1F;
+            --color-white: #FFFFFF;
+
+            /* Accent Colors */
+            --color-pink-soft: #FFB4D6;
+            --color-pink-ultra: #FF1B8D;
+            --color-gray: #6B7280;
+            --color-gray-light: #9CA3AF;
+
+            /* Status Colors */
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-pending: #64748B;
+
+            /* Typography */
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            --space-3xl: 6rem;
+
+            /* Layout */
+            --max-width: 1400px;
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(233, 30, 140, 0.1);
+            --shadow-md: 0 4px 6px rgba(233, 30, 140, 0.15);
+            --shadow-lg: 0 10px 25px rgba(233, 30, 140, 0.2);
+            --shadow-pink-glow: 0 0 40px rgba(233, 30, 140, 0.3);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-black);
+            color: var(--color-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-charcoal);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-primary-light);
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .section {
+            padding: var(--space-3xl) 0;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-display);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-pink-ultra) 50%, var(--color-primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(233, 30, 140, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(233, 30, 140, 0.6);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .animate-slideInRight {
+            animation: slideInRight 0.6s ease-out forwards;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--color-black);
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--color-charcoal);
+            border-top: 4px solid var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // ==================== DATA STRUCTURE ====================
+        // Data loads from schedule.json file
+
+        // ==================== MAIN APP COMPONENT ====================
+        function App() {
+            const [scheduleData, setScheduleData] = useState(null);
+            const [currentView, setCurrentView] = useState('landing');
+            const [selectedDay, setSelectedDay] = useState(null);
+            const [isLoading, setIsLoading] = useState(true);
+
+            useEffect(() => {
+                fetch('data/schedule.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        const completedDays = data.days.filter(d => d.completed).length;
+                        const totalHours = data.days.reduce((sum, d) => sum + d.totalHours, 0);
+                        const completedHours = data.days.filter(d => d.completed).reduce((sum, d) => sum + d.totalHours, 0);
+
+                        data.stats = {
+                            ...data.stats,
+                            completedDays,
+                            totalHours,
+                            completedHours,
+                            totalDays: data.days.length
+                        };
+
+                        setScheduleData(data);
+                        setIsLoading(false);
+                    })
+                    .catch(() => setIsLoading(false));
+            }, []);
+
+            if (isLoading) {
+                return (
+                    <div className="loading">
+                        <div className="loading-spinner"></div>
+                    </div>
+                );
+            }
+
+            if (!scheduleData) {
+                return <div className="loading"><p>Error loading data</p></div>;
+            }
+
+            return (
+                <>
+                    <Navigation
+                        currentView={currentView}
+                        setCurrentView={setCurrentView}
+                    />
+
+                    {currentView === 'landing' && (
+                        <LandingPage
+                            stats={scheduleData.stats}
+                            setCurrentView={setCurrentView}
+                        />
+                    )}
+
+                    {currentView === 'calendar' && (
+                        <CalendarView
+                            days={scheduleData.days}
+                            setSelectedDay={setSelectedDay}
+                            setCurrentView={setCurrentView}
+                        />
+                    )}
+
+                    {currentView === 'task' && selectedDay && (
+                        <TaskDetailView
+                            day={selectedDay}
+                        />
+                    )}
+
+                    {currentView === 'portfolio' && (
+                        <PortfolioGallery />
+                    )}
+
+                    <Footer />
+                </>
+            );
+        }
+
+        // ==================== NAVIGATION COMPONENT ====================
+        function Navigation({ currentView, setCurrentView }) {
+            const [isScrolled, setIsScrolled] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setIsScrolled(window.scrollY > 50);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <nav style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    zIndex: 1000,
+                    background: isScrolled ? 'rgba(10, 10, 10, 0.95)' : 'transparent',
+                    backdropFilter: isScrolled ? 'blur(20px)' : 'none',
+                    borderBottom: isScrolled ? '1px solid rgba(233, 30, 140, 0.2)' : 'none',
+                    transition: 'all 0.3s ease'
+                }}>
+                    <div className="container" style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: 'var(--space-md) var(--space-lg)',
+                        maxWidth: 'var(--max-width)'
+                    }}>
+                        <div style={{
+                            fontFamily: 'var(--font-display)',
+                            fontSize: '1.5rem',
+                            fontWeight: 800,
+                            cursor: 'pointer'
+                        }} onClick={() => setCurrentView('landing')}>
+                            <span className="gradient-text">JA</span>
+                        </div>
+
+                        <div style={{
+                            display: 'flex',
+                            gap: 'var(--space-lg)',
+                            alignItems: 'center'
+                        }}>
+                            <NavLink
+                                active={currentView === 'landing'}
+                                onClick={() => setCurrentView('landing')}
+                            >
+                                Home
+                            </NavLink>
+                            <NavLink
+                                active={currentView === 'calendar'}
+                                onClick={() => setCurrentView('calendar')}
+                            >
+                                Calendar
+                            </NavLink>
+                            <NavLink
+                                active={currentView === 'portfolio'}
+                                onClick={() => setCurrentView('portfolio')}
+                            >
+                                Portfolio
+                            </NavLink>
+                        </div>
+                    </div>
+                </nav>
+            );
+        }
+
+        function NavLink({ active, onClick, children }) {
+            return (
+                <button
+                    onClick={onClick}
+                    style={{
+                        background: 'none',
+                        border: 'none',
+                        color: active ? 'var(--color-primary)' : 'var(--color-white)',
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '1rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        padding: '0.5rem 1rem',
+                        borderRadius: '6px',
+                        transition: 'all 0.3s ease',
+                        position: 'relative'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.target.style.color = 'var(--color-primary)';
+                        e.target.style.transform = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.target.style.color = active ? 'var(--color-primary)' : 'var(--color-white)';
+                        e.target.style.transform = 'translateY(0)';
+                    }}
+                >
+                    {children}
+                    {active && (
+                        <div style={{
+                            position: 'absolute',
+                            bottom: 0,
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            width: '60%',
+                            height: '2px',
+                            background: 'var(--color-primary)',
+                            borderRadius: '2px'
+                        }} />
+                    )}
+                </button>
+            );
+        }
+
+        // This is Part 1 - Landing Page component will continue in next file
+
+        // ==================== FOOTER COMPONENT ====================
+        function Footer() {
+            return (
+                <footer style={{
+                    background: 'var(--color-charcoal)',
+                    borderTop: '1px solid rgba(233, 30, 140, 0.2)',
+                    padding: 'var(--space-xl) 0'
+                }}>
+                    <div className="container" style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        gap: 'var(--space-md)'
+                    }}>
+                        <div style={{ fontSize: '0.875rem', color: 'var(--color-gray)' }}>
+                            © 2026 Jannah Ahmed. Building in public.
+                        </div>
+
+                        <a href="https://github.com/Dejigner/Analog-IC-Journey"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                color: 'var(--color-gray)',
+                                textDecoration: 'none',
+                                fontSize: '0.875rem',
+                                transition: 'color 0.3s ease'
+                            }}
+                            onMouseEnter={(e) => e.target.style.color = 'var(--color-primary)'}
+                            onMouseLeave={(e) => e.target.style.color = 'var(--color-gray)'}
+                        >
+                            View on GitHub
+                        </a>
+                    </div>
+                </footer>
+            );
+        }
+
+        // ==================== LANDING PAGE COMPONENT ====================
+        // This file contains all major components: Landing, Calendar, Tasks, Portfolio
+        // Paste these into the main index.html script replacing the placeholder components
+
+        function LandingPage({ stats, setCurrentView }) {
+            const [isVisible, setIsVisible] = useState(false);
+
+            useEffect(() => {
+                setIsVisible(true);
+                // Initialize Lucide icons
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, []);
+
+            const completionPercentage = ((stats.completedHours / stats.totalHours) * 100).toFixed(1);
+
+            return (
+                <div style={{
+                    minHeight: '100vh',
+                    background: 'var(--color-black)',
+                    position: 'relative',
+                    overflow: 'hidden'
+                }}>
+                    {/* Animated background gradient */}
+                    <div style={{
+                        position: 'absolute',
+                        top: '-50%',
+                        right: '-20%',
+                        width: '800px',
+                        height: '800px',
+                        background: 'radial-gradient(circle, rgba(233, 30, 140, 0.15) 0%, transparent 70%)',
+                        filter: 'blur(80px)',
+                        animation: 'pulse 4s ease-in-out infinite',
+                        pointerEvents: 'none'
+                    }} />
+
+                    {/* Hero Section */}
+                    <section style={{
+                        paddingTop: '140px',
+                        paddingBottom: 'var(--space-3xl)',
+                        position: 'relative',
+                        zIndex: 1
+                    }}>
+                        <div className="container">
+                            <div style={{
+                                maxWidth: '900px',
+                                margin: '0 auto',
+                                textAlign: 'center',
+                                opacity: isVisible ? 1 : 0,
+                                transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+                                transition: 'all 0.8s ease-out'
+                            }}>
+                                <h1 style={{
+                                    fontSize: 'clamp(3rem, 8vw, 5.5rem)',
+                                    fontWeight: 800,
+                                    marginBottom: 'var(--space-md)',
+                                    lineHeight: 1.1
+                                }} className="gradient-text">
+                                    Designing the Unseen
+                                </h1>
+
+                                <p style={{
+                                    fontSize: 'clamp(1.1rem, 2vw, 1.5rem)',
+                                    color: 'var(--color-gray-light)',
+                                    marginBottom: 'var(--space-xl)',
+                                    fontWeight: 300,
+                                    letterSpacing: '0.02em'
+                                }}>
+                                    From MOSFET physics to working analog circuits
+                                </p>
+
+                                <div style={{
+                                    display: 'flex',
+                                    gap: 'var(--space-md)',
+                                    justifyContent: 'center',
+                                    flexWrap: 'wrap',
+                                    marginBottom: 'var(--space-3xl)'
+                                }}>
+                                    <button
+                                        onClick={() => setCurrentView('calendar')}
+                                        style={{
+                                            padding: '1rem 2.5rem',
+                                            background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))',
+                                            border: 'none',
+                                            borderRadius: '12px',
+                                            color: 'white',
+                                            fontSize: '1.1rem',
+                                            fontWeight: 700,
+                                            cursor: 'pointer',
+                                            transition: 'all 0.3s ease',
+                                            boxShadow: '0 4px 20px rgba(233, 30, 140, 0.4)',
+                                            fontFamily: 'var(--font-display)'
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.target.style.transform = 'translateY(-2px)';
+                                            e.target.style.boxShadow = '0 6px 30px rgba(233, 30, 140, 0.6)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.target.style.transform = 'translateY(0)';
+                                            e.target.style.boxShadow = '0 4px 20px rgba(233, 30, 140, 0.4)';
+                                        }}
+                                    >
+                                        View Journey
+                                    </button>
+
+                                    <button
+                                        onClick={() => setCurrentView('portfolio')}
+                                        style={{
+                                            padding: '1rem 2.5rem',
+                                            background: 'transparent',
+                                            border: '2px solid var(--color-primary)',
+                                            borderRadius: '12px',
+                                            color: 'var(--color-primary)',
+                                            fontSize: '1.1rem',
+                                            fontWeight: 700,
+                                            cursor: 'pointer',
+                                            transition: 'all 0.3s ease',
+                                            fontFamily: 'var(--font-display)'
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.target.style.background = 'var(--color-primary)';
+                                            e.target.style.color = 'white';
+                                            e.target.style.transform = 'translateY(-2px)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.target.style.background = 'transparent';
+                                            e.target.style.color = 'var(--color-primary)';
+                                            e.target.style.transform = 'translateY(0)';
+                                        }}
+                                    >
+                                        View Portfolio
+                                    </button>
+                                </div>
+
+                                {/* Quick Stats */}
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                                    gap: 'var(--space-md)',
+                                    marginTop: 'var(--space-2xl)'
+                                }}>
+                                    <StatCard
+                                        label="Days"
+                                        value={`${stats.completedDays}/${stats.totalDays}`}
+                                        icon="calendar"
+                                    />
+                                    <StatCard
+                                        label="Hours"
+                                        value={`${stats.completedHours}/${stats.totalHours}`}
+                                        icon="clock"
+                                    />
+                                    <StatCard
+                                        label="Completion"
+                                        value={`${completionPercentage}%`}
+                                        icon="trending-up"
+                                    />
+                                    <StatCard
+                                        label="Streak"
+                                        value={`${stats.currentStreak} days`}
+                                        icon="zap"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Detailed Statistics Section */}
+                    <section style={{
+                        background: 'linear-gradient(180deg, transparent 0%, var(--color-charcoal) 20%)',
+                        padding: 'var(--space-3xl) 0',
+                        position: 'relative'
+                    }}>
+                        <div className="container">
+                            <h2 style={{
+                                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                                fontWeight: 800,
+                                marginBottom: 'var(--space-2xl)',
+                                textAlign: 'center'
+                            }}>
+                                Progress <span className="gradient-text">Overview</span>
+                            </h2>
+
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                                gap: 'var(--space-lg)',
+                                marginBottom: 'var(--space-3xl)'
+                            }}>
+                                <ProgressCard
+                                    title="Topics Covered"
+                                    items={stats.topics}
+                                />
+                                <TimeBreakdownCard stats={stats} />
+                            </div>
+
+                            {/* Call to Action */}
+                            <div style={{
+                                background: 'linear-gradient(135deg, rgba(233, 30, 140, 0.1), rgba(157, 23, 77, 0.1))',
+                                border: '1px solid rgba(233, 30, 140, 0.3)',
+                                borderRadius: 'var(--border-radius-lg)',
+                                padding: 'var(--space-2xl)',
+                                textAlign: 'center'
+                            }}>
+                                <h3 style={{
+                                    fontSize: '1.8rem',
+                                    marginBottom: 'var(--space-md)',
+                                    fontWeight: 700
+                                }}>
+                                    Following my analog IC design journey?
+                                </h3>
+                                <p style={{
+                                    color: 'var(--color-gray-light)',
+                                    marginBottom: 'var(--space-lg)',
+                                    fontSize: '1.1rem'
+                                }}>
+                                    Track my daily progress, see my work samples, and follow along as I build expertise in analog integrated circuit design.
+                                </p>
+                                <a
+                                    href="https://github.com/Dejigner/Analog-IC-Journey"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem',
+                                        padding: '0.875rem 2rem',
+                                        background: 'var(--color-white)',
+                                        color: 'var(--color-black)',
+                                        borderRadius: '10px',
+                                        textDecoration: 'none',
+                                        fontWeight: 700,
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.target.style.transform = 'scale(1.05)';
+                                        e.target.style.boxShadow = 'var(--shadow-pink-glow)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.target.style.transform = 'scale(1)';
+                                        e.target.style.boxShadow = 'none';
+                                    }}
+                                >
+                                    <i data-lucide="github" style={{ width: '20px', height: '20px' }}></i>
+                                    View on GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+
+        function StatCard({ label, value, icon }) {
+            return (
+                <div style={{
+                    background: 'rgba(31, 31, 31, 0.6)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(233, 30, 140, 0.2)',
+                    borderRadius: 'var(--border-radius)',
+                    padding: 'var(--space-md)',
+                    textAlign: 'center',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer'
+                }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.border = '1px solid var(--color-primary)';
+                        e.currentTarget.style.transform = 'translateY(-4px)';
+                        e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.border = '1px solid rgba(233, 30, 140, 0.2)';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                    }}
+                >
+                    <i data-lucide={icon} style={{
+                        width: '32px',
+                        height: '32px',
+                        color: 'var(--color-primary)',
+                        marginBottom: 'var(--space-sm)'
+                    }}></i>
+                    <div style={{
+                        fontSize: '2rem',
+                        fontWeight: 800,
+                        fontFamily: 'var(--font-display)',
+                        marginBottom: '0.25rem',
+                        color: 'var(--color-white)'
+                    }}>
+                        {value}
+                    </div>
+                    <div style={{
+                        fontSize: '0.875rem',
+                        color: 'var(--color-gray)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        fontWeight: 600
+                    }}>
+                        {label}
+                    </div>
+                </div>
+            );
+        }
+
+        function ProgressCard({ title, items }) {
+            return (
+                <div style={{
+                    background: 'rgba(31, 31, 31, 0.8)',
+                    border: '1px solid rgba(233, 30, 140, 0.2)',
+                    borderRadius: 'var(--border-radius-lg)',
+                    padding: 'var(--space-lg)'
+                }}>
+                    <h3 style={{
+                        fontSize: '1.3rem',
+                        fontWeight: 700,
+                        marginBottom: 'var(--space-md)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem'
+                    }}>
+                        <i data-lucide="book-open" style={{ width: '24px', height: '24px', color: 'var(--color-primary)' }}></i>
+                        {title}
+                    </h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                        {items.map((item, index) => (
+                            <div key={index} style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.75rem',
+                                padding: '0.75rem',
+                                background: 'rgba(233, 30, 140, 0.05)',
+                                borderRadius: '8px',
+                                transition: 'all 0.2s ease'
+                            }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.background = 'rgba(233, 30, 140, 0.15)';
+                                    e.currentTarget.style.transform = 'translateX(4px)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.background = 'rgba(233, 30, 140, 0.05)';
+                                    e.currentTarget.style.transform = 'translateX(0)';
+                                }}
+                            >
+                                <div style={{
+                                    width: '8px',
+                                    height: '8px',
+                                    borderRadius: '50%',
+                                    background: 'var(--color-primary)'
+                                }} />
+                                <span style={{ color: 'var(--color-gray-light)' }}>{item}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function TimeBreakdownCard({ stats }) {
+            return (
+                <div style={{
+                    background: 'rgba(31, 31, 31, 0.8)',
+                    border: '1px solid rgba(233, 30, 140, 0.2)',
+                    borderRadius: 'var(--border-radius-lg)',
+                    padding: 'var(--space-lg)'
+                }}>
+                    <h3 style={{
+                        fontSize: '1.3rem',
+                        fontWeight: 700,
+                        marginBottom: 'var(--space-md)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem'
+                    }}>
+                        <i data-lucide="pie-chart" style={{ width: '24px', height: '24px', color: 'var(--color-primary)' }}></i>
+                        Time Breakdown
+                    </h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <TimeBar label="Reading & Theory" percentage={40} color="var(--color-primary)" />
+                        <TimeBar label="Simulation & Practice" percentage={35} color="var(--color-primary-light)" />
+                        <TimeBar label="Documentation" percentage={15} color="var(--color-warning)" />
+                        <TimeBar label="Review & Reflection" percentage={10} color="var(--color-success)" />
+                    </div>
+                </div>
+            );
+        }
+
+        function TimeBar({ label, percentage, color }) {
+            const [width, setWidth] = useState(0);
+
+            useEffect(() => {
+                setTimeout(() => setWidth(percentage), 200);
+            }, [percentage]);
+
+            return (
+                <div>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginBottom: '0.5rem',
+                        fontSize: '0.875rem'
+                    }}>
+                        <span style={{ color: 'var(--color-gray-light)' }}>{label}</span>
+                        <span style={{ color: color, fontWeight: 600 }}>{percentage}%</span>
+                    </div>
+                    <div style={{
+                        width: '100%',
+                        height: '8px',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        borderRadius: '4px',
+                        overflow: 'hidden'
+                    }}>
+                        <div style={{
+                            width: `${width}%`,
+                            height: '100%',
+                            background: color,
+                            borderRadius: '4px',
+                            transition: 'width 1s ease-out'
+                        }} />
+                    </div>
+                </div>
+            );
+        }
+
+        // ==================== CALENDAR VIEW COMPONENT ====================
+        function CalendarView({ days, setSelectedDay, setCurrentView }) {
+            const [currentMonth, setCurrentMonth] = useState(new Date(2026, 0)); // January 2026
+            const [hoveredDay, setHoveredDay] = useState(null);
+
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [currentMonth]);
+
+            const getChallengeDayForDate = (year, month, dayOfMonth) => {
+                const date = new Date(year, month, dayOfMonth);
+                const startDate = new Date(2026, 0, 30); // Jan 30 = Day 0
+                const diffTime = date - startDate;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                return days.find(d => d.dayNumber === diffDays);
+            };
+
+            const getDaysInMonth = (date) => {
+                const year = date.getFullYear();
+                const month = date.getMonth();
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                const startingDayOfWeek = firstDay.getDay();
+
+                return { daysInMonth, startingDayOfWeek, year, month };
+            };
+
+            const { daysInMonth, startingDayOfWeek, year, month } = getDaysInMonth(currentMonth);
+
+            const handleDayClick = (challengeDay) => {
+                if (challengeDay) {
+                    setSelectedDay(challengeDay);
+                    setCurrentView('task');
+                }
+            };
+
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+            const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+            return (
+                <div style={{
+                    minHeight: '100vh',
+                    paddingTop: '120px',
+                    paddingBottom: 'var(--space-3xl)',
+                    background: 'var(--color-black)'
+                }}>
+                    <div className="container">
+                        <div style={{
+                            maxWidth: '1200px',
+                            margin: '0 auto'
+                        }}>
+                            {/* Header */}
+                            <div style={{
+                                marginBottom: 'var(--space-2xl)'
+                            }}>
+                                <h1 style={{
+                                    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                                    fontWeight: 800,
+                                    marginBottom: 'var(--space-sm)'
+                                }}>
+                                    <span className="gradient-text">Journey Calendar</span>
+                                </h1>
+                                <p style={{
+                                    fontSize: '1.2rem',
+                                    color: 'var(--color-gray-light)'
+                                }}>
+                                    Click any day to view tasks and track progress
+                                </p>
+                            </div>
+
+                            {/* Calendar Controls */}
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                marginBottom: 'var(--space-lg)',
+                                padding: 'var(--space-md)',
+                                background: 'rgba(31, 31, 31, 0.6)',
+                                borderRadius: 'var(--border-radius)',
+                                border: '1px solid rgba(233, 30, 140, 0.2)'
+                            }}>
+                                <button
+                                    onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() - 1)))}
+                                    style={{
+                                        background: 'none',
+                                        border: '1px solid var(--color-primary)',
+                                        borderRadius: '8px',
+                                        padding: '0.5rem 1rem',
+                                        color: 'var(--color-primary)',
+                                        cursor: 'pointer',
+                                        fontWeight: 600,
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.target.style.background = 'var(--color-primary)';
+                                        e.target.style.color = 'white';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.target.style.background = 'none';
+                                        e.target.style.color = 'var(--color-primary)';
+                                    }}
+                                >
+                                    ← Previous
+                                </button>
+
+                                <h2 style={{
+                                    fontSize: '1.5rem',
+                                    fontWeight: 700,
+                                    fontFamily: 'var(--font-display)'
+                                }}>
+                                    {monthNames[month]} {year}
+                                </h2>
+
+                                <button
+                                    onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() + 1)))}
+                                    style={{
+                                        background: 'none',
+                                        border: '1px solid var(--color-primary)',
+                                        borderRadius: '8px',
+                                        padding: '0.5rem 1rem',
+                                        color: 'var(--color-primary)',
+                                        cursor: 'pointer',
+                                        fontWeight: 600,
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.target.style.background = 'var(--color-primary)';
+                                        e.target.style.color = 'white';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.target.style.background = 'none';
+                                        e.target.style.color = 'var(--color-primary)';
+                                    }}
+                                >
+                                    Next →
+                                </button>
+                            </div>
+
+                            {/* Calendar Grid */}
+                            <div style={{
+                                background: 'rgba(31, 31, 31, 0.8)',
+                                borderRadius: 'var(--border-radius-lg)',
+                                padding: 'var(--space-lg)',
+                                border: '1px solid rgba(233, 30, 140, 0.2)'
+                            }}>
+                                {/* Weekday Headers */}
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(7, 1fr)',
+                                    gap: '1rem',
+                                    marginBottom: 'var(--space-md)'
+                                }}>
+                                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                                        <div key={day} style={{
+                                            textAlign: 'center',
+                                            fontWeight: 700,
+                                            color: 'var(--color-primary)',
+                                            fontSize: '0.875rem',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '0.05em'
+                                        }}>
+                                            {day}
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Calendar Days */}
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(7, 1fr)',
+                                    gap: '1rem'
+                                }}>
+                                    {/* Empty cells for days before month starts */}
+                                    {[...Array(startingDayOfWeek)].map((_, i) => (
+                                        <div key={`empty-${i}`} />
+                                    ))}
+
+                                    {/* Actual days */}
+                                    {[...Array(daysInMonth)].map((_, i) => {
+                                        const dayOfMonth = i + 1;
+                                        const challengeDay = getChallengeDayForDate(year, month, dayOfMonth);
+                                        const isCompleted = challengeDay?.completed || false;
+                                        const hasData = !!challengeDay;
+                                        const dayOfWeekIndex = (startingDayOfWeek + i) % 7;
+
+                                        return (
+                                            <div
+                                                key={dayOfMonth}
+                                                onClick={() => handleDayClick(challengeDay)}
+                                                onMouseEnter={() => setHoveredDay(dayOfMonth)}
+                                                onMouseLeave={() => setHoveredDay(null)}
+                                                style={{
+                                                    aspectRatio: '1',
+                                                    background: isCompleted
+                                                        ? 'linear-gradient(135deg, var(--color-success), var(--color-success))'
+                                                        : hasData
+                                                            ? 'rgba(233, 30, 140, 0.1)'
+                                                            : 'rgba(255, 255, 255, 0.02)',
+                                                    border: hasData
+                                                        ? hoveredDay === dayOfMonth
+                                                            ? '2px solid var(--color-primary)'
+                                                            : '1px solid rgba(233, 30, 140, 0.3)'
+                                                        : '1px solid rgba(255, 255, 255, 0.05)',
+                                                    borderRadius: 'var(--border-radius)',
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    cursor: hasData ? 'pointer' : 'default',
+                                                    transition: 'all 0.3s ease',
+                                                    position: 'relative',
+                                                    padding: '0.5rem',
+                                                    transform: hoveredDay === dayOfMonth ? 'scale(1.05)' : 'scale(1)',
+                                                    boxShadow: hoveredDay === dayOfMonth && hasData ? 'var(--shadow-pink-glow)' : 'none'
+                                                }}
+                                            >
+                                                {hasData && (
+                                                    <div style={{
+                                                        fontSize: '0.7rem',
+                                                        fontWeight: 700,
+                                                        color: 'var(--color-primary)',
+                                                        marginBottom: '0.25rem',
+                                                        fontFamily: 'var(--font-mono)'
+                                                    }}>
+                                                        DAY {challengeDay.dayNumber}
+                                                    </div>
+                                                )}
+
+                                                <div style={{
+                                                    fontSize: hasData ? '2rem' : '1.5rem',
+                                                    fontWeight: 700,
+                                                    fontFamily: 'var(--font-display)',
+                                                    color: isCompleted
+                                                        ? 'white'
+                                                        : hasData
+                                                            ? 'var(--color-white)'
+                                                            : 'var(--color-gray)'
+                                                }}>
+                                                    {dayOfMonth}
+                                                </div>
+
+                                                <div style={{
+                                                    fontSize: '0.65rem',
+                                                    color: 'var(--color-gray)',
+                                                    marginTop: '0.25rem',
+                                                    fontWeight: 600
+                                                }}>
+                                                    {dayNames[dayOfWeekIndex]}
+                                                </div>
+
+                                                {isCompleted && (
+                                                    <i data-lucide="check" style={{
+                                                        width: '16px',
+                                                        height: '16px',
+                                                        color: 'white',
+                                                        position: 'absolute',
+                                                        top: '0.5rem',
+                                                        right: '0.5rem'
+                                                    }}></i>
+                                                )}
+                                                {hasData && !isCompleted && (
+                                                    <div style={{
+                                                        width: '6px',
+                                                        height: '6px',
+                                                        borderRadius: '50%',
+                                                        background: 'var(--color-primary)',
+                                                        position: 'absolute',
+                                                        bottom: '0.5rem'
+                                                    }} />
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                            {/* Legend */}
+                            <div style={{
+                                marginTop: 'var(--space-lg)',
+                                display: 'flex',
+                                gap: 'var(--space-lg)',
+                                justifyContent: 'center',
+                                flexWrap: 'wrap'
+                            }}>
+                                <LegendItem color="var(--color-success)" label="Completed" />
+                                <LegendItem color="rgba(233, 30, 140, 0.5)" label="Has Tasks" />
+                                <LegendItem color="rgba(255, 255, 255, 0.1)" label="No Tasks" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function LegendItem({ color, label }) {
+            return (
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                }}>
+                    <div style={{
+                        width: '20px',
+                        height: '20px',
+                        borderRadius: '4px',
+                        background: color
+                    }} />
+                    <span style={{
+                        fontSize: '0.875rem',
+                        color: 'var(--color-gray-light)'
+                    }}>
+                        {label}
+                    </span>
+                </div>
+            );
+        }
+
+        // Note: Task Detail View and Portfolio Gallery components will be in the next continuation
+        // This file is getting large, so I'll create them separately
+
+        // ==================== TASK DETAIL VIEW COMPONENT ====================
+        function TaskDetailView({ day }) {
+            const [expandedTasks, setExpandedTasks] = useState({});
+
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [expandedTasks]);
+
+            const toggleTaskExpansion = (taskId) => {
+                setExpandedTasks(prev => ({
+                    ...prev,
+                    [taskId]: !prev[taskId]
+                }));
+            };
+
+            const totalTasks = day.sessions.reduce((acc, session) => acc + session.tasks.length, 0);
+            const completedTasks = day.sessions.reduce((acc, session) =>
+                acc + session.tasks.filter(t => t.completed).length, 0
+            );
+            const completionPercentage = totalTasks > 0 ? (completedTasks / totalTasks * 100).toFixed(0) : 0;
+
+            return (
+                <div style={{
+                    minHeight: '100vh',
+                    paddingTop: '120px',
+                    paddingBottom: 'var(--space-3xl)',
+                    background: 'var(--color-black)'
+                }}>
+                    <div className="container">
+                        <div style={{
+                            maxWidth: '900px',
+                            margin: '0 auto'
+                        }}>
+                            {/* Header */}
+                            <div style={{
+                                marginBottom: 'var(--space-2xl)'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 'var(--space-md)',
+                                    marginBottom: 'var(--space-md)'
+                                }}>
+                                    <div style={{
+                                        width: '60px',
+                                        height: '60px',
+                                        borderRadius: '12px',
+                                        background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        fontSize: '1.5rem',
+                                        fontWeight: 800,
+                                        fontFamily: 'var(--font-display)',
+                                        boxShadow: 'var(--shadow-pink-glow)'
+                                    }}>
+                                        {day.dayNumber}
+                                    </div>
+                                    <div>
+                                        <h1 style={{
+                                            fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+                                            fontWeight: 800,
+                                            marginBottom: '0.25rem'
+                                        }}>
+                                            Day {day.dayNumber}
+                                        </h1>
+                                        <p style={{
+                                            color: 'var(--color-gray-light)',
+                                            fontSize: '1.1rem'
+                                        }}>
+                                            {day.dateFormatted}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Progress Bar */}
+                                <div style={{
+                                    background: 'rgba(31, 31, 31, 0.8)',
+                                    borderRadius: 'var(--border-radius)',
+                                    padding: 'var(--space-md)',
+                                    border: '1px solid rgba(233, 30, 140, 0.2)'
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        marginBottom: 'var(--space-sm)',
+                                        alignItems: 'center'
+                                    }}>
+                                        <span style={{ color: 'var(--color-gray-light)' }}>
+                                            Progress
+                                        </span>
+                                        <span style={{
+                                            fontWeight: 700,
+                                            color: 'var(--color-primary)',
+                                            fontSize: '1.2rem',
+                                            fontFamily: 'var(--font-display)'
+                                        }}>
+                                            {completedTasks}/{totalTasks} tasks ({completionPercentage}%)
+                                        </span>
+                                    </div>
+                                    <div style={{
+                                        width: '100%',
+                                        height: '12px',
+                                        background: 'rgba(255, 255, 255, 0.05)',
+                                        borderRadius: '6px',
+                                        overflow: 'hidden'
+                                    }}>
+                                        <div style={{
+                                            width: `${completionPercentage}%`,
+                                            height: '100%',
+                                            background: 'linear-gradient(90deg, var(--color-primary), var(--color-primary-light))',
+                                            borderRadius: '6px',
+                                            transition: 'width 0.5s ease'
+                                        }} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Sessions */}
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 'var(--space-lg)'
+                            }}>
+                                {day.sessions.map((session, sessionIndex) => (
+                                    <div key={session.id} style={{
+                                        background: 'rgba(31, 31, 31, 0.8)',
+                                        borderRadius: 'var(--border-radius-lg)',
+                                        padding: 'var(--space-lg)',
+                                        border: '1px solid rgba(233, 30, 140, 0.2)',
+                                        animation: `fadeInUp 0.5s ease-out ${sessionIndex * 0.1}s forwards`,
+                                        opacity: 0
+                                    }}>
+                                        {/* Session Header */}
+                                        <div style={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            marginBottom: 'var(--space-md)',
+                                            paddingBottom: 'var(--space-md)',
+                                            borderBottom: '1px solid rgba(233, 30, 140, 0.2)'
+                                        }}>
+                                            <div>
+                                                <h3 style={{
+                                                    fontSize: '1.5rem',
+                                                    fontWeight: 700,
+                                                    marginBottom: '0.25rem',
+                                                    fontFamily: 'var(--font-display)'
+                                                }}>
+                                                    {session.name}
+                                                </h3>
+                                                <div style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '1rem',
+                                                    color: 'var(--color-gray-light)',
+                                                    fontSize: '0.9rem'
+                                                }}>
+                                                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                                                        <i data-lucide="clock" style={{ width: '16px', height: '16px' }}></i>
+                                                        {session.time}
+                                                    </span>
+                                                    <span>•</span>
+                                                    <span>{session.duration} hours</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Tasks */}
+                                        <div style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: 'var(--space-md)'
+                                        }}>
+                                            {session.tasks.map((task, taskIndex) => (
+                                                <TaskCard
+                                                    key={task.id}
+                                                    task={task}
+                                                    sessionId={session.id}
+                                                    dayId={day.id}
+
+                                                    isExpanded={expandedTasks[task.id]}
+                                                    toggleExpansion={() => toggleTaskExpansion(task.id)}
+                                                    toggleCompletion={() => toggleTaskCompletion(day.id, session.id, task.id)}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function TaskCard({ task, isExpanded, toggleExpansion }) {
+            return (
+                <div style={{
+                    background: task.completed
+                        ? 'rgba(16, 185, 129, 0.1)'
+                        : 'rgba(233, 30, 140, 0.05)',
+                    borderRadius: 'var(--border-radius)',
+                    border: `1px solid ${task.completed ? 'var(--color-success)' : 'rgba(233, 30, 140, 0.2)'}`,
+                    transition: 'all 0.3s ease',
+                    overflow: 'hidden'
+                }}>
+                    {/* Task Header */}
+                    <div
+                        onClick={toggleExpansion}
+                        style={{
+                            padding: 'var(--space-md)',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--space-md)',
+                            transition: 'background 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(233, 30, 140, 0.1)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'transparent';
+                        }}
+                    >
+                        {/* Checkbox */}
+                        <div
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                // Toggle completion would go here
+                            }}
+                            style={{
+                                width: '24px',
+                                height: '24px',
+                                borderRadius: '6px',
+                                border: `2px solid ${task.completed ? 'var(--color-success)' : 'var(--color-primary)'}`,
+                                background: task.completed ? 'var(--color-success)' : 'transparent',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexShrink: 0,
+                                transition: 'all 0.2s ease'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.target.style.transform = 'scale(1.1)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.transform = 'scale(1)';
+                            }}
+                        >
+                            {task.completed && (
+                                <i data-lucide="check" style={{ width: '16px', height: '16px', color: 'white' }}></i>
+                            )}
+                        </div>
+
+                        {/* Task Info */}
+                        <div style={{ flex: 1 }}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '1rem',
+                                flexWrap: 'wrap'
+                            }}>
+                                <span style={{
+                                    fontFamily: 'var(--font-mono)',
+                                    fontSize: '0.85rem',
+                                    color: 'var(--color-primary)',
+                                    fontWeight: 600
+                                }}>
+                                    {task.time}
+                                </span>
+                                <h4 style={{
+                                    fontSize: '1.1rem',
+                                    fontWeight: 600,
+                                    color: task.completed ? 'var(--color-gray-light)' : 'var(--color-white)',
+                                    textDecoration: task.completed ? 'line-through' : 'none'
+                                }}>
+                                    {task.title}
+                                </h4>
+                            </div>
+                        </div>
+
+                        {/* Expand Icon */}
+                        <i
+                            data-lucide={isExpanded ? "chevron-up" : "chevron-down"}
+                            style={{
+                                width: '20px',
+                                height: '20px',
+                                color: 'var(--color-gray)',
+                                transition: 'transform 0.3s ease',
+                                flexShrink: 0
+                            }}
+                        ></i>
+                    </div>
+
+                    {/* Task Details (Expandable) */}
+                    {isExpanded && (
+                        <div style={{
+                            padding: 'var(--space-md)',
+                            paddingTop: 0,
+                            borderTop: '1px solid rgba(233, 30, 140, 0.1)'
+                        }}>
+                            {task.details.length > 0 && (
+                                <div style={{
+                                    marginTop: 'var(--space-md)'
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '0.75rem'
+                                    }}>
+                                        {task.details.map((detail, index) => (
+                                            <div
+                                                key={index}
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'flex-start',
+                                                    gap: '0.75rem',
+                                                    padding: '0.75rem',
+                                                    background: 'rgba(255, 255, 255, 0.02)',
+                                                    borderRadius: '8px',
+                                                    borderLeft: '3px solid var(--color-primary)'
+                                                }}
+                                            >
+                                                <div style={{
+                                                    width: '6px',
+                                                    height: '6px',
+                                                    borderRadius: '50%',
+                                                    background: 'var(--color-primary)',
+                                                    marginTop: '0.5rem',
+                                                    flexShrink: 0
+                                                }} />
+                                                <span style={{
+                                                    color: 'var(--color-gray-light)',
+                                                    lineHeight: 1.6,
+                                                    fontFamily: 'var(--font-mono)',
+                                                    fontSize: '0.9rem'
+                                                }}>
+                                                    {detail}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Attachments */}
+                            {task.attachments && task.attachments.length > 0 && (
+                                <div style={{
+                                    marginTop: 'var(--space-md)',
+                                    padding: 'var(--space-md)',
+                                    background: 'rgba(233, 30, 140, 0.05)',
+                                    borderRadius: '8px'
+                                }}>
+                                    <h5 style={{
+                                        fontSize: '0.9rem',
+                                        fontWeight: 700,
+                                        marginBottom: 'var(--space-sm)',
+                                        color: 'var(--color-primary)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem'
+                                    }}>
+                                        <i data-lucide="paperclip" style={{ width: '16px', height: '16px' }}></i>
+                                        Attachments
+                                    </h5>
+                                    <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '0.5rem'
+                                    }}>
+                                        {task.attachments.map((attachment, index) => (
+                                            <a
+                                                key={index}
+                                                href={attachment.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '0.5rem',
+                                                    color: 'var(--color-primary)',
+                                                    textDecoration: 'none',
+                                                    fontSize: '0.9rem',
+                                                    transition: 'all 0.2s ease'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.target.style.transform = 'translateX(4px)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.target.style.transform = 'translateX(0)';
+                                                }}
+                                            >
+                                                <i data-lucide="file" style={{ width: '16px', height: '16px' }}></i>
+                                                {attachment.name}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // ==================== PORTFOLIO GALLERY COMPONENT ====================
+        function PortfolioGallery() {
+            const [selectedItem, setSelectedItem] = useState(null);
+            const [filter, setFilter] = useState('all');
+
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [filter]);
+
+            // Sample portfolio items (will be replaced with real data)
+            const portfolioItems = [
+                {
+                    id: 1,
+                    title: 'Common Source Amplifier Simulation',
+                    category: 'simulation',
+                    date: '2026-02-03',
+                    description: 'LTspice simulation of a common-source amplifier with small-signal analysis',
+                    thumbnail: 'https://via.placeholder.com/400x300/E91E8C/FFFFFF?text=CS+Amplifier',
+                    fileUrl: 'https://github.com/Dejigner/Analog-IC-Journey',
+                    tags: ['MOSFET', 'Amplifier', 'LTspice']
+                },
+                {
+                    id: 2,
+                    title: 'MOS Device I-V Characteristics',
+                    category: 'documentation',
+                    date: '2026-02-02',
+                    description: 'Comprehensive analysis of MOSFET I-V curves and operating regions',
+                    thumbnail: 'https://via.placeholder.com/400x300/FF1B8D/FFFFFF?text=I-V+Analysis',
+                    fileUrl: 'https://github.com/Dejigner/Analog-IC-Journey',
+                    tags: ['MOSFET', 'Theory', 'Analysis']
+                },
+                {
+                    id: 3,
+                    title: 'Small-Signal Model Derivation',
+                    category: 'documentation',
+                    date: '2026-02-03',
+                    description: 'Hand-derived small-signal model with transconductance calculations',
+                    thumbnail: 'https://via.placeholder.com/400x300/9D174D/FFFFFF?text=Small+Signal',
+                    fileUrl: 'https://github.com/Dejigner/Analog-IC-Journey',
+                    tags: ['Theory', 'Math', 'MOSFET']
+                }
+            ];
+
+            const categories = [
+                { id: 'all', label: 'All Work' },
+                { id: 'simulation', label: 'Simulations' },
+                { id: 'documentation', label: 'Documentation' },
+                { id: 'design', label: 'Designs' }
+            ];
+
+            const filteredItems = filter === 'all'
+                ? portfolioItems
+                : portfolioItems.filter(item => item.category === filter);
+
+            return (
+                <div style={{
+                    minHeight: '100vh',
+                    paddingTop: '120px',
+                    paddingBottom: 'var(--space-3xl)',
+                    background: 'var(--color-black)'
+                }}>
+                    <div className="container">
+                        <div style={{
+                            maxWidth: '1200px',
+                            margin: '0 auto'
+                        }}>
+                            {/* Header */}
+                            <div style={{
+                                marginBottom: 'var(--space-2xl)',
+                                textAlign: 'center'
+                            }}>
+                                <h1 style={{
+                                    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                                    fontWeight: 800,
+                                    marginBottom: 'var(--space-md)'
+                                }}>
+                                    <span className="gradient-text">Work Portfolio</span>
+                                </h1>
+                                <p style={{
+                                    fontSize: '1.2rem',
+                                    color: 'var(--color-gray-light)',
+                                    maxWidth: '600px',
+                                    margin: '0 auto'
+                                }}>
+                                    Simulations, designs, and documentation from my analog IC journey
+                                </p>
+                            </div>
+
+                            {/* Filter Buttons */}
+                            <div style={{
+                                display: 'flex',
+                                gap: 'var(--space-md)',
+                                justifyContent: 'center',
+                                marginBottom: 'var(--space-2xl)',
+                                flexWrap: 'wrap'
+                            }}>
+                                {categories.map(category => (
+                                    <button
+                                        key={category.id}
+                                        onClick={() => setFilter(category.id)}
+                                        style={{
+                                            padding: '0.75rem 1.5rem',
+                                            background: filter === category.id
+                                                ? 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))'
+                                                : 'transparent',
+                                            border: filter === category.id
+                                                ? 'none'
+                                                : '1px solid var(--color-primary)',
+                                            borderRadius: '10px',
+                                            color: 'white',
+                                            fontSize: '1rem',
+                                            fontWeight: 600,
+                                            cursor: 'pointer',
+                                            transition: 'all 0.3s ease',
+                                            fontFamily: 'var(--font-body)'
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            if (filter !== category.id) {
+                                                e.target.style.background = 'rgba(233, 30, 140, 0.1)';
+                                            }
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            if (filter !== category.id) {
+                                                e.target.style.background = 'transparent';
+                                            }
+                                        }}
+                                    >
+                                        {category.label}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Portfolio Grid */}
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+                                gap: 'var(--space-lg)'
+                            }}>
+                                {filteredItems.map((item, index) => (
+                                    <PortfolioCard
+                                        key={item.id}
+                                        item={item}
+                                        index={index}
+                                        onClick={() => setSelectedItem(item)}
+                                    />
+                                ))}
+                            </div>
+
+                            {filteredItems.length === 0 && (
+                                <div style={{
+                                    textAlign: 'center',
+                                    padding: 'var(--space-3xl)',
+                                    color: 'var(--color-gray)'
+                                }}>
+                                    <i data-lucide="inbox" style={{ width: '64px', height: '64px', marginBottom: 'var(--space-md)' }}></i>
+                                    <p style={{ fontSize: '1.2rem' }}>No items in this category yet</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Modal for detailed view */}
+                    {selectedItem && (
+                        <PortfolioModal
+                            item={selectedItem}
+                            onClose={() => setSelectedItem(null)}
+                        />
+                    )}
+                </div>
+            );
+        }
+
+        function PortfolioCard({ item, index, onClick }) {
+            return (
+                <div
+                    onClick={onClick}
+                    style={{
+                        background: 'rgba(31, 31, 31, 0.8)',
+                        borderRadius: 'var(--border-radius-lg)',
+                        overflow: 'hidden',
+                        border: '1px solid rgba(233, 30, 140, 0.2)',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`,
+                        opacity: 0
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-8px)';
+                        e.currentTarget.style.boxShadow = 'var(--shadow-pink-glow)';
+                        e.currentTarget.style.border = '1px solid var(--color-primary)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                        e.currentTarget.style.border = '1px solid rgba(233, 30, 140, 0.2)';
+                    }}
+                >
+                    {/* Thumbnail */}
+                    <div style={{
+                        width: '100%',
+                        height: '200px',
+                        background: `url(${item.thumbnail})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        position: 'relative'
+                    }}>
+                        <div style={{
+                            position: 'absolute',
+                            top: 'var(--space-sm)',
+                            right: 'var(--space-sm)',
+                            padding: '0.5rem 1rem',
+                            background: 'rgba(10, 10, 10, 0.9)',
+                            backdropFilter: 'blur(10px)',
+                            borderRadius: '8px',
+                            fontSize: '0.75rem',
+                            fontWeight: 600,
+                            color: 'var(--color-primary)',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em'
+                        }}>
+                            {item.category}
+                        </div>
+                    </div>
+
+                    {/* Content */}
+                    <div style={{
+                        padding: 'var(--space-md)'
+                    }}>
+                        <div style={{
+                            fontSize: '0.875rem',
+                            color: 'var(--color-gray)',
+                            marginBottom: 'var(--space-sm)',
+                            fontFamily: 'var(--font-mono)'
+                        }}>
+                            {new Date(item.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            })}
+                        </div>
+
+                        <h3 style={{
+                            fontSize: '1.25rem',
+                            fontWeight: 700,
+                            marginBottom: 'var(--space-sm)',
+                            color: 'var(--color-white)',
+                            fontFamily: 'var(--font-display)'
+                        }}>
+                            {item.title}
+                        </h3>
+
+                        <p style={{
+                            color: 'var(--color-gray-light)',
+                            fontSize: '0.95rem',
+                            lineHeight: 1.6,
+                            marginBottom: 'var(--space-md)'
+                        }}>
+                            {item.description}
+                        </p>
+
+                        {/* Tags */}
+                        <div style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: '0.5rem'
+                        }}>
+                            {item.tags.map(tag => (
+                                <span
+                                    key={tag}
+                                    style={{
+                                        padding: '0.25rem 0.75rem',
+                                        background: 'rgba(233, 30, 140, 0.1)',
+                                        border: '1px solid rgba(233, 30, 140, 0.3)',
+                                        borderRadius: '6px',
+                                        fontSize: '0.75rem',
+                                        color: 'var(--color-primary)',
+                                        fontWeight: 600
+                                    }}
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function PortfolioModal({ item, onClose }) {
+            useEffect(() => {
+                // Prevent body scroll when modal is open
+                document.body.style.overflow = 'hidden';
+                return () => {
+                    document.body.style.overflow = 'unset';
+                };
+            }, []);
+
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, []);
+
+            return (
+                <div
+                    onClick={onClose}
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'rgba(10, 10, 10, 0.95)',
+                        backdropFilter: 'blur(10px)',
+                        zIndex: 2000,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: 'var(--space-lg)',
+                        animation: 'fadeIn 0.3s ease-out'
+                    }}
+                >
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                            background: 'var(--color-charcoal)',
+                            borderRadius: 'var(--border-radius-lg)',
+                            maxWidth: '900px',
+                            width: '100%',
+                            maxHeight: '90vh',
+                            overflow: 'auto',
+                            border: '1px solid rgba(233, 30, 140, 0.3)',
+                            animation: 'fadeInUp 0.3s ease-out'
+                        }}
+                    >
+                        {/* Header */}
+                        <div style={{
+                            padding: 'var(--space-lg)',
+                            borderBottom: '1px solid rgba(233, 30, 140, 0.2)',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'flex-start'
+                        }}>
+                            <div style={{ flex: 1 }}>
+                                <div style={{
+                                    fontSize: '0.875rem',
+                                    color: 'var(--color-gray)',
+                                    marginBottom: 'var(--space-sm)',
+                                    fontFamily: 'var(--font-mono)'
+                                }}>
+                                    {new Date(item.date).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    })}
+                                </div>
+                                <h2 style={{
+                                    fontSize: '2rem',
+                                    fontWeight: 800,
+                                    marginBottom: 'var(--space-sm)',
+                                    fontFamily: 'var(--font-display)'
+                                }}>
+                                    {item.title}
+                                </h2>
+                                <p style={{
+                                    color: 'var(--color-gray-light)',
+                                    fontSize: '1.1rem'
+                                }}>
+                                    {item.description}
+                                </p>
+                            </div>
+
+                            <button
+                                onClick={onClose}
+                                style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    color: 'var(--color-gray)',
+                                    cursor: 'pointer',
+                                    padding: '0.5rem',
+                                    marginLeft: 'var(--space-md)',
+                                    transition: 'all 0.2s ease'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.target.style.color = 'var(--color-primary)';
+                                    e.target.style.transform = 'rotate(90deg)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.target.style.color = 'var(--color-gray)';
+                                    e.target.style.transform = 'rotate(0deg)';
+                                }}
+                            >
+                                <i data-lucide="x" style={{ width: '32px', height: '32px' }}></i>
+                            </button>
+                        </div>
+
+                        {/* Content */}
+                        <div style={{
+                            padding: 'var(--space-lg)'
+                        }}>
+                            {/* Thumbnail/Preview */}
+                            <img
+                                src={item.thumbnail}
+                                alt={item.title}
+                                style={{
+                                    width: '100%',
+                                    borderRadius: 'var(--border-radius)',
+                                    marginBottom: 'var(--space-lg)'
+                                }}
+                            />
+
+                            {/* Tags */}
+                            <div style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                gap: '0.5rem',
+                                marginBottom: 'var(--space-lg)'
+                            }}>
+                                {item.tags.map(tag => (
+                                    <span
+                                        key={tag}
+                                        style={{
+                                            padding: '0.5rem 1rem',
+                                            background: 'rgba(233, 30, 140, 0.1)',
+                                            border: '1px solid rgba(233, 30, 140, 0.3)',
+                                            borderRadius: '8px',
+                                            fontSize: '0.875rem',
+                                            color: 'var(--color-primary)',
+                                            fontWeight: 600
+                                        }}
+                                    >
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div style={{
+                                display: 'flex',
+                                gap: 'var(--space-md)',
+                                flexWrap: 'wrap'
+                            }}>
+                                <a
+                                    href={item.fileUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        padding: '1rem 2rem',
+                                        background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))',
+                                        border: 'none',
+                                        borderRadius: '10px',
+                                        color: 'white',
+                                        fontSize: '1rem',
+                                        fontWeight: 700,
+                                        textDecoration: 'none',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.target.style.transform = 'translateY(-2px)';
+                                        e.target.style.boxShadow = 'var(--shadow-pink-glow)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.target.style.transform = 'translateY(0)';
+                                        e.target.style.boxShadow = 'none';
+                                    }}
+                                >
+                                    <i data-lucide="github" style={{ width: '20px', height: '20px' }}></i>
+                                    View on GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Additional animation keyframes
+        const additionalStyles = `
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+`;
+
+        // Add to head
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = additionalStyles;
+        document.head.appendChild(styleSheet);
+
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
