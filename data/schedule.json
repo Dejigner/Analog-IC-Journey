@@ -101,27 +101,6 @@
               ]
             }
           ]
-        },
-        {
-          "id": "day1-documentation",
-          "name": "Documentation",
-          "time": "9:00-9:30 PM",
-          "duration": 0.5,
-          "tasks": [
-            {
-              "id": "day1-task-6",
-              "time": "9:00-9:30",
-              "title": "GitHub Commit",
-              "completed": false,
-              "details": [
-                "Create folder: /notes/week01/",
-                "Add file: day01_notes.md with today's notes",
-                "Add screenshot to /circuits/week01/",
-                "Commit message: \"Day 1: Introduction and first simulation\""
-              ],
-              "attachments": []
-            }
-          ]
         }
       ]
     },
