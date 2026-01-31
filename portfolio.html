@@ -524,7 +524,7 @@
                         overflow: 'hidden',
                         background: 'var(--color-charcoal)'
                     }}>
-                        {item.fileType === 'pdf' ? (
+                        {item.thumbnail.endsWith('.pdf') ? (
                             <iframe
                                 src={`${item.thumbnail}#page=1&view=FitH`}
                                 style={{ width: '100%', height: '100%', border: 'none', pointerEvents: 'none' }}
