@@ -15,7 +15,7 @@
       "date": "2026-01-31",
       "dateFormatted": "Saturday, January 31, 2026",
       "totalHours": 4,
-      "completed": false,
+      "completed": true,
       "sessions": [
         {
           "id": "day1-morning",
