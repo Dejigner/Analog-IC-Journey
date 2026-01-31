@@ -27,7 +27,7 @@
               "id": "day1-task-1",
               "time": "6:00-6:30",
               "title": "Setup",
-              "completed": false,
+              "completed": true,
               "details": [
                 "Create GitHub account: github.com/[yourname]",
                 "Create repository: \"analog-ic-journey\"",
