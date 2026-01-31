@@ -166,13 +166,72 @@
             }
         }
 
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
         @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block !important;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 1000;
+            }
+
+            .nav-links.open {
+                display: flex !important;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem !important;
+                padding: 1rem 2rem !important;
+            }
+
             .container {
                 padding: 0 0.75rem !important;
             }
 
             .portfolio-grid {
                 grid-template-columns: 1fr !important;
+            }
+
+            .filter-buttons {
+                flex-wrap: wrap !important;
+                gap: 0.5rem !important;
+            }
+
+            .filter-buttons button {
+                padding: 0.5rem 1rem !important;
+                font-size: 0.9rem !important;
+            }
+
+            footer .container {
+                flex-direction: column !important;
+                text-align: center !important;
             }
         }
     </style>
@@ -196,6 +255,7 @@
 
         function Navigation({ currentPage }) {
             const [isScrolled, setIsScrolled] = useState(false);
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
             useEffect(() => {
                 const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -203,12 +263,20 @@
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
 
+            useEffect(() => {
+                document.body.style.overflow = mobileMenuOpen ? 'hidden' : 'unset';
+            }, [mobileMenuOpen]);
+
+            useEffect(() => {
+                if (window.lucide) window.lucide.createIcons();
+            }, [mobileMenuOpen]);
+
             return (
                 <nav style={{
                     position: 'fixed',
                     top: 0, left: 0, right: 0,
                     zIndex: 1000,
-                    background: isScrolled ? 'rgba(10, 10, 10, 0.95)' : 'transparent',
+                    background: isScrolled || mobileMenuOpen ? 'rgba(10, 10, 10, 0.95)' : 'transparent',
                     backdropFilter: isScrolled ? 'blur(20px)' : 'none',
                     borderBottom: isScrolled ? '1px solid rgba(233, 30, 140, 0.2)' : 'none',
                     transition: 'all 0.3s ease'
@@ -224,25 +292,45 @@
                             fontFamily: 'var(--font-display)',
                             fontSize: '1.5rem',
                             fontWeight: 800,
-                            textDecoration: 'none'
+                            textDecoration: 'none',
+                            zIndex: 1001
                         }}>
                             <span className="gradient-text">JA</span>
                         </a>
 
-                        <div style={{ display: 'flex', gap: 'var(--space-lg)', alignItems: 'center' }}>
-                            <NavLink href="index.html" active={currentPage === 'home'}>Home</NavLink>
-                            <NavLink href="calendar.html" active={currentPage === 'calendar'}>Calendar</NavLink>
-                            <NavLink href="portfolio.html" active={currentPage === 'portfolio'}>Portfolio</NavLink>
+                        <button
+                            className="mobile-menu-btn"
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem', zIndex: 1001 }}
+                            aria-label="Toggle menu"
+                        >
+                            <i data-lucide={mobileMenuOpen ? "x" : "menu"} style={{ width: '28px', height: '28px', color: 'var(--color-primary)' }}></i>
+                        </button>
+
+                        <div className={`nav-links ${mobileMenuOpen ? 'open' : ''}`}>
+                            {mobileMenuOpen && (
+                                <button
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem' }}
+                                    aria-label="Close menu"
+                                >
+                                    <i data-lucide="x" style={{ width: '32px', height: '32px', color: 'var(--color-primary)' }}></i>
+                                </button>
+                            )}
+                            <NavLink href="index.html" active={currentPage === 'home'} onClick={() => setMobileMenuOpen(false)}>Home</NavLink>
+                            <NavLink href="calendar.html" active={currentPage === 'calendar'} onClick={() => setMobileMenuOpen(false)}>Calendar</NavLink>
+                            <NavLink href="portfolio.html" active={currentPage === 'portfolio'} onClick={() => setMobileMenuOpen(false)}>Portfolio</NavLink>
                         </div>
                     </div>
                 </nav>
             );
         }
 
-        function NavLink({ href, active, children }) {
+        function NavLink({ href, active, children, onClick }) {
             return (
                 <a
                     href={href}
+                    onClick={onClick}
                     style={{
                         color: active ? 'var(--color-primary)' : 'var(--color-white)',
                         fontFamily: 'var(--font-body)',
