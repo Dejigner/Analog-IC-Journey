@@ -504,7 +504,6 @@
                 const dayOfWeek = today.getDay();
                 const sunday = new Date(today);
                 sunday.setDate(today.getDate() - dayOfWeek);
-                // Reset time to midnight
                 sunday.setHours(0, 0, 0, 0);
                 return sunday;
             });
@@ -532,22 +531,9 @@
             };
 
             const getWeekDays = () => {
-                if (!currentWeekStart || !(currentWeekStart instanceof Date) || isNaN(currentWeekStart.getTime())) {
-                    // Fallback to current week if state is invalid
-                    const today = new Date();
-                    const dayOfWeek = today.getDay();
-                    const fallbackStart = new Date(today);
-                    fallbackStart.setDate(today.getDate() - dayOfWeek);
-                    fallbackStart.setHours(0, 0, 0, 0);
-                    return Array.from({ length: 7 }, (_, i) => {
-                        const date = new Date(fallbackStart);
-                        date.setDate(fallbackStart.getDate() + i);
-                        return date;
-                    });
-                }
                 const weekDays = [];
                 for (let i = 0; i < 7; i++) {
-                    const date = new Date(currentWeekStart.getTime());
+                    const date = new Date(currentWeekStart);
                     date.setDate(currentWeekStart.getDate() + i);
                     weekDays.push(date);
                 }
@@ -555,20 +541,14 @@
             };
 
             const navigateWeek = (direction) => {
-                if (!currentWeekStart || !(currentWeekStart instanceof Date) || isNaN(currentWeekStart.getTime())) {
-                    return; // Don't navigate if state is invalid
-                }
-                const newStart = new Date(currentWeekStart.getTime());
+                const newStart = new Date(currentWeekStart);
                 newStart.setDate(currentWeekStart.getDate() + (direction * 7));
                 setCurrentWeekStart(newStart);
             };
 
             const getWeekRangeText = () => {
-                if (!currentWeekStart || !(currentWeekStart instanceof Date) || isNaN(currentWeekStart.getTime())) {
-                    return 'Loading...';
-                }
-                const weekEnd = new Date(currentWeekStart.getTime());
-                weekEnd.setDate(weekEnd.getDate() + 6);
+                const weekEnd = new Date(currentWeekStart);
+                weekEnd.setDate(currentWeekStart.getDate() + 6);
                 const options = { month: 'short', day: 'numeric' };
                 return `${currentWeekStart.toLocaleDateString('en-US', options)} - ${weekEnd.toLocaleDateString('en-US', options)}`;
             };
@@ -685,9 +665,6 @@
                                 {/* Week Days Cards */}
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                                     {weekDays.map((date, index) => {
-                                        if (!date || !(date instanceof Date) || isNaN(date.getTime())) {
-                                            return null; // Skip invalid dates
-                                        }
                                         const challengeDay = getChallengeDayForDate(date.getFullYear(), date.getMonth(), date.getDate());
                                         const isCompleted = challengeDay?.completed || false;
                                         const hasData = !!challengeDay;
