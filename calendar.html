@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey Calendar - Jannah Ahmed</title>
+    <meta name="description" content="90-day analog IC design journey calendar. Track daily progress and tasks.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* CSS Variables - Pink + Black Theme */
+        :root {
+            --color-primary: #E91E8C;
+            --color-primary-light: #FF5BAE;
+            --color-primary-dark: #9D174D;
+            --color-black: #0A0A0A;
+            --color-charcoal: #1F1F1F;
+            --color-white: #FFFFFF;
+            --color-pink-soft: #FFB4D6;
+            --color-pink-ultra: #FF1B8D;
+            --color-gray: #6B7280;
+            --color-gray-light: #9CA3AF;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-pending: #64748B;
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            --space-3xl: 6rem;
+            --max-width: 1400px;
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+            --shadow-sm: 0 1px 3px rgba(233, 30, 140, 0.1);
+            --shadow-md: 0 4px 6px rgba(233, 30, 140, 0.15);
+            --shadow-lg: 0 10px 25px rgba(233, 30, 140, 0.2);
+            --shadow-pink-glow: 0 0 40px rgba(233, 30, 140, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-black);
+            color: var(--color-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-charcoal);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-primary-light);
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-display);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-pink-ultra) 50%, var(--color-primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--color-black);
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--color-charcoal);
+            border-top: 4px solid var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Mobile Responsive Calendar */
+        @media (max-width: 768px) {
+            .calendar-grid {
+                gap: 0.25rem !important;
+            }
+
+            .calendar-day {
+                padding: 0.25rem !important;
+                min-height: 50px !important;
+            }
+
+            .calendar-day-number {
+                font-size: 1rem !important;
+            }
+
+            .calendar-day-label {
+                font-size: 0.5rem !important;
+            }
+
+            .calendar-day-tag {
+                font-size: 0.5rem !important;
+            }
+
+            .calendar-controls {
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+
+            .calendar-controls button {
+                padding: 0.4rem 0.8rem !important;
+                font-size: 0.8rem !important;
+            }
+
+            .calendar-controls h2 {
+                font-size: 1.1rem !important;
+            }
+
+            .calendar-weekdays {
+                gap: 0.25rem !important;
+            }
+
+            .calendar-weekday {
+                font-size: 0.65rem !important;
+            }
+
+            .legend-container {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+
+            .container {
+                padding: 0 0.75rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-day {
+                min-height: 40px !important;
+            }
+
+            .calendar-day-number {
+                font-size: 0.85rem !important;
+            }
+
+            .calendar-day-tag {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function App() {
+            const [scheduleData, setScheduleData] = useState(null);
+            const [selectedDay, setSelectedDay] = useState(null);
+            const [isLoading, setIsLoading] = useState(true);
+
+            // Check URL for day parameter
+            useEffect(() => {
+                const params = new URLSearchParams(window.location.search);
+                const dayParam = params.get('day');
+
+                fetch('data/schedule.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        setScheduleData(data);
+                        if (dayParam) {
+                            const day = data.days.find(d => d.dayNumber === parseInt(dayParam));
+                            if (day) setSelectedDay(day);
+                        }
+                        setIsLoading(false);
+                    })
+                    .catch(() => setIsLoading(false));
+            }, []);
+
+            const handleDaySelect = (day) => {
+                setSelectedDay(day);
+                // Update URL without reload
+                const url = new URL(window.location);
+                url.searchParams.set('day', day.dayNumber);
+                window.history.pushState({}, '', url);
+            };
+
+            const handleBackToCalendar = () => {
+                setSelectedDay(null);
+                const url = new URL(window.location);
+                url.searchParams.delete('day');
+                window.history.pushState({}, '', url);
+            };
+
+            // Handle browser back/forward
+            useEffect(() => {
+                const handlePopState = () => {
+                    const params = new URLSearchParams(window.location.search);
+                    const dayParam = params.get('day');
+                    if (dayParam && scheduleData) {
+                        const day = scheduleData.days.find(d => d.dayNumber === parseInt(dayParam));
+                        setSelectedDay(day || null);
+                    } else {
+                        setSelectedDay(null);
+                    }
+                };
+                window.addEventListener('popstate', handlePopState);
+                return () => window.removeEventListener('popstate', handlePopState);
+            }, [scheduleData]);
+
+            if (isLoading) {
+                return <div className="loading"><div className="loading-spinner"></div></div>;
+            }
+
+            if (!scheduleData) {
+                return <div className="loading"><p>Error loading data</p></div>;
+            }
+
+            return (
+                <>
+                    <Navigation currentPage="calendar" />
+                    {selectedDay ? (
+                        <TaskDetailView day={selectedDay} onBack={handleBackToCalendar} />
+                    ) : (
+                        <CalendarView days={scheduleData.days} onDaySelect={handleDaySelect} />
+                    )}
+                    <Footer />
+                </>
+            );
+        }
+
+        function Navigation({ currentPage }) {
+            const [isScrolled, setIsScrolled] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setIsScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <nav style={{
+                    position: 'fixed',
+                    top: 0, left: 0, right: 0,
+                    zIndex: 1000,
+                    background: isScrolled ? 'rgba(10, 10, 10, 0.95)' : 'transparent',
+                    backdropFilter: isScrolled ? 'blur(20px)' : 'none',
+                    borderBottom: isScrolled ? '1px solid rgba(233, 30, 140, 0.2)' : 'none',
+                    transition: 'all 0.3s ease'
+                }}>
+                    <div className="container" style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: 'var(--space-md) var(--space-lg)',
+                        maxWidth: 'var(--max-width)'
+                    }}>
+                        <a href="index.html" style={{
+                            fontFamily: 'var(--font-display)',
+                            fontSize: '1.5rem',
+                            fontWeight: 800,
+                            textDecoration: 'none'
+                        }}>
+                            <span className="gradient-text">JA</span>
+                        </a>
+
+                        <div style={{ display: 'flex', gap: 'var(--space-lg)', alignItems: 'center' }}>
+                            <NavLink href="index.html" active={currentPage === 'home'}>Home</NavLink>
+                            <NavLink href="calendar.html" active={currentPage === 'calendar'}>Calendar</NavLink>
+                            <NavLink href="portfolio.html" active={currentPage === 'portfolio'}>Portfolio</NavLink>
+                        </div>
+                    </div>
+                </nav>
+            );
+        }
+
+        function NavLink({ href, active, children }) {
+            return (
+                <a
+                    href={href}
+                    style={{
+                        color: active ? 'var(--color-primary)' : 'var(--color-white)',
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '1rem',
+                        fontWeight: 600,
+                        textDecoration: 'none',
+                        padding: '0.5rem 1rem',
+                        borderRadius: '6px',
+                        transition: 'all 0.3s ease',
+                        position: 'relative',
+                        borderBottom: active ? '2px solid var(--color-primary)' : '2px solid transparent'
+                    }}
+                >
+                    {children}
+                </a>
+            );
+        }
+
+        function Footer() {
+            return (
+                <footer style={{
+                    background: 'var(--color-charcoal)',
+                    borderTop: '1px solid rgba(233, 30, 140, 0.2)',
+                    padding: 'var(--space-xl) 0'
+                }}>
+                    <div className="container" style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        gap: 'var(--space-md)'
+                    }}>
+                        <div style={{ fontSize: '0.875rem', color: 'var(--color-gray)' }}>
+                            © 2026 Jannah Ahmed. Building in public.
+                        </div>
+                        <a href="https://github.com/Dejigner/Analog-IC-Journey"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ color: 'var(--color-gray)', textDecoration: 'none', fontSize: '0.875rem' }}
+                        >
+                            View on GitHub
+                        </a>
+                    </div>
+                </footer>
+            );
+        }
+
+        function CalendarView({ days, onDaySelect }) {
+            const [currentMonth, setCurrentMonth] = useState(new Date(2026, 0));
+            const [hoveredDay, setHoveredDay] = useState(null);
+
+            useEffect(() => {
+                if (window.lucide) window.lucide.createIcons();
+            }, [currentMonth]);
+
+            const getChallengeDayForDate = (year, month, dayOfMonth) => {
+                const date = new Date(year, month, dayOfMonth);
+                const startDate = new Date(2026, 0, 30);
+                const diffTime = date - startDate;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                return days.find(d => d.dayNumber === diffDays);
+            };
+
+            const getDaysInMonth = (date) => {
+                const year = date.getFullYear();
+                const month = date.getMonth();
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                const startingDayOfWeek = firstDay.getDay();
+                return { daysInMonth, startingDayOfWeek, year, month };
+            };
+
+            const { daysInMonth, startingDayOfWeek, year, month } = getDaysInMonth(currentMonth);
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+            return (
+                <div style={{ minHeight: '100vh', paddingTop: '120px', paddingBottom: 'var(--space-3xl)', background: 'var(--color-black)' }}>
+                    <div className="container">
+                        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+                            <div style={{ marginBottom: 'var(--space-2xl)' }}>
+                                <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, marginBottom: 'var(--space-sm)' }}>
+                                    <span className="gradient-text">Journey Calendar</span>
+                                </h1>
+                                <p style={{ fontSize: '1.2rem', color: 'var(--color-gray-light)' }}>
+                                    Click any day to view tasks and track progress
+                                </p>
+                            </div>
+
+                            <div className="calendar-controls" style={{
+                                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                                marginBottom: 'var(--space-lg)', padding: 'var(--space-md)',
+                                background: 'rgba(31, 31, 31, 0.6)', borderRadius: 'var(--border-radius)',
+                                border: '1px solid rgba(233, 30, 140, 0.2)'
+                            }}>
+                                <button onClick={() => setCurrentMonth(new Date(year, month - 1))} style={{
+                                    background: 'none', border: '1px solid var(--color-primary)', borderRadius: '8px',
+                                    padding: '0.5rem 1rem', color: 'var(--color-primary)', cursor: 'pointer', fontWeight: 600
+                                }}>← Previous</button>
+                                <h2 style={{ fontSize: '1.5rem', fontWeight: 700, fontFamily: 'var(--font-display)' }}>
+                                    {monthNames[month]} {year}
+                                </h2>
+                                <button onClick={() => setCurrentMonth(new Date(year, month + 1))} style={{
+                                    background: 'none', border: '1px solid var(--color-primary)', borderRadius: '8px',
+                                    padding: '0.5rem 1rem', color: 'var(--color-primary)', cursor: 'pointer', fontWeight: 600
+                                }}>Next →</button>
+                            </div>
+
+                            <div style={{ background: 'rgba(31, 31, 31, 0.8)', borderRadius: 'var(--border-radius-lg)', padding: 'var(--space-lg)', border: '1px solid rgba(233, 30, 140, 0.2)' }}>
+                                <div className="calendar-weekdays" style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '1rem', marginBottom: 'var(--space-md)' }}>
+                                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                                        <div key={day} className="calendar-weekday" style={{ textAlign: 'center', fontWeight: 700, color: 'var(--color-primary)', fontSize: '0.875rem', textTransform: 'uppercase' }}>
+                                            {day}
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="calendar-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '1rem' }}>
+                                    {[...Array(startingDayOfWeek)].map((_, i) => <div key={`empty-${i}`} />)}
+                                    {[...Array(daysInMonth)].map((_, i) => {
+                                        const dayOfMonth = i + 1;
+                                        const challengeDay = getChallengeDayForDate(year, month, dayOfMonth);
+                                        const isCompleted = challengeDay?.completed || false;
+                                        const hasData = !!challengeDay;
+                                        const dayOfWeekIndex = (startingDayOfWeek + i) % 7;
+
+                                        return (
+                                            <div key={dayOfMonth} className="calendar-day"
+                                                onClick={() => hasData && onDaySelect(challengeDay)}
+                                                onMouseEnter={() => setHoveredDay(dayOfMonth)}
+                                                onMouseLeave={() => setHoveredDay(null)}
+                                                style={{
+                                                    aspectRatio: '1',
+                                                    background: isCompleted ? 'linear-gradient(135deg, var(--color-success), var(--color-success))' : hasData ? 'rgba(233, 30, 140, 0.1)' : 'rgba(255, 255, 255, 0.02)',
+                                                    border: hasData ? (hoveredDay === dayOfMonth ? '2px solid var(--color-primary)' : '1px solid rgba(233, 30, 140, 0.3)') : '1px solid rgba(255, 255, 255, 0.05)',
+                                                    borderRadius: 'var(--border-radius)',
+                                                    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                                                    cursor: hasData ? 'pointer' : 'default',
+                                                    transition: 'all 0.3s ease',
+                                                    position: 'relative', padding: '0.5rem',
+                                                    transform: hoveredDay === dayOfMonth ? 'scale(1.05)' : 'scale(1)',
+                                                    boxShadow: hoveredDay === dayOfMonth && hasData ? 'var(--shadow-pink-glow)' : 'none'
+                                                }}>
+                                                {hasData && <div className="calendar-day-tag" style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--color-primary)', marginBottom: '0.25rem', fontFamily: 'var(--font-mono)' }}>DAY {challengeDay.dayNumber}</div>}
+                                                <div className="calendar-day-number" style={{ fontSize: hasData ? '2rem' : '1.5rem', fontWeight: 700, fontFamily: 'var(--font-display)', color: isCompleted ? 'white' : hasData ? 'var(--color-white)' : 'var(--color-gray)' }}>{dayOfMonth}</div>
+                                                <div className="calendar-day-label" style={{ fontSize: '0.65rem', color: 'var(--color-gray)', marginTop: '0.25rem', fontWeight: 600 }}>{dayNames[dayOfWeekIndex]}</div>
+                                                {isCompleted && <i data-lucide="check" style={{ width: '16px', height: '16px', color: 'white', position: 'absolute', top: '0.5rem', right: '0.5rem' }}></i>}
+                                                {hasData && !isCompleted && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--color-primary)', position: 'absolute', bottom: '0.5rem' }} />}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                            <div className="legend-container" style={{ marginTop: 'var(--space-lg)', display: 'flex', gap: 'var(--space-lg)', justifyContent: 'center', flexWrap: 'wrap' }}>
+                                <LegendItem color="var(--color-success)" label="Completed" />
+                                <LegendItem color="rgba(233, 30, 140, 0.5)" label="Has Tasks" />
+                                <LegendItem color="rgba(255, 255, 255, 0.1)" label="No Tasks" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function LegendItem({ color, label }) {
+            return (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ width: '20px', height: '20px', borderRadius: '4px', background: color }} />
+                    <span style={{ fontSize: '0.875rem', color: 'var(--color-gray-light)' }}>{label}</span>
+                </div>
+            );
+        }
+
+        function TaskDetailView({ day, onBack }) {
+            const [expandedTasks, setExpandedTasks] = useState({});
+
+            useEffect(() => {
+                if (window.lucide) window.lucide.createIcons();
+            }, [expandedTasks]);
+
+            const toggleTaskExpansion = (taskId) => {
+                setExpandedTasks(prev => ({ ...prev, [taskId]: !prev[taskId] }));
+            };
+
+            const totalTasks = day.sessions.reduce((acc, session) => acc + session.tasks.length, 0);
+            const completedTasks = day.sessions.reduce((acc, session) => acc + session.tasks.filter(t => t.completed).length, 0);
+            const completionPercentage = totalTasks > 0 ? (completedTasks / totalTasks * 100).toFixed(0) : 0;
+
+            return (
+                <div style={{ minHeight: '100vh', paddingTop: '120px', paddingBottom: 'var(--space-3xl)', background: 'var(--color-black)' }}>
+                    <div className="container">
+                        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                            {/* Back Button */}
+                            <button onClick={onBack} style={{
+                                background: 'none', border: '1px solid var(--color-primary)', borderRadius: '8px',
+                                padding: '0.5rem 1rem', color: 'var(--color-primary)', cursor: 'pointer', fontWeight: 600,
+                                marginBottom: 'var(--space-lg)', display: 'flex', alignItems: 'center', gap: '0.5rem'
+                            }}>
+                                ← Back to Calendar
+                            </button>
+
+                            <div style={{ marginBottom: 'var(--space-2xl)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)', marginBottom: 'var(--space-md)' }}>
+                                    <div style={{
+                                        width: '60px', height: '60px', borderRadius: '12px',
+                                        background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-display)',
+                                        boxShadow: 'var(--shadow-pink-glow)'
+                                    }}>{day.dayNumber}</div>
+                                    <div>
+                                        <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 800, marginBottom: '0.25rem' }}>Day {day.dayNumber}</h1>
+                                        <p style={{ color: 'var(--color-gray-light)', fontSize: '1.1rem' }}>{day.dateFormatted}</p>
+                                    </div>
+                                </div>
+
+                                <div style={{ background: 'rgba(31, 31, 31, 0.8)', borderRadius: 'var(--border-radius)', padding: 'var(--space-md)', border: '1px solid rgba(233, 30, 140, 0.2)' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'var(--space-sm)', alignItems: 'center' }}>
+                                        <span style={{ color: 'var(--color-gray-light)' }}>Progress</span>
+                                        <span style={{ fontWeight: 700, color: 'var(--color-primary)', fontSize: '1.2rem', fontFamily: 'var(--font-display)' }}>{completedTasks}/{totalTasks} tasks ({completionPercentage}%)</span>
+                                    </div>
+                                    <div style={{ width: '100%', height: '12px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '6px', overflow: 'hidden' }}>
+                                        <div style={{ width: `${completionPercentage}%`, height: '100%', background: 'linear-gradient(90deg, var(--color-primary), var(--color-primary-light))', borderRadius: '6px' }} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
+                                {day.sessions.map((session, sessionIndex) => (
+                                    <div key={session.id} className="animate-fadeInUp" style={{
+                                        background: 'rgba(31, 31, 31, 0.8)', borderRadius: 'var(--border-radius-lg)',
+                                        padding: 'var(--space-lg)', border: '1px solid rgba(233, 30, 140, 0.2)',
+                                        animationDelay: `${sessionIndex * 0.1}s`
+                                    }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-md)', paddingBottom: 'var(--space-md)', borderBottom: '1px solid rgba(233, 30, 140, 0.2)' }}>
+                                            <div>
+                                                <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.25rem', fontFamily: 'var(--font-display)' }}>{session.name}</h3>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--color-gray-light)', fontSize: '0.9rem' }}>
+                                                    <span>{session.time}</span>
+                                                    <span>•</span>
+                                                    <span>{session.duration} hours</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+                                            {session.tasks.map(task => (
+                                                <TaskCard key={task.id} task={task} isExpanded={expandedTasks[task.id]} toggleExpansion={() => toggleTaskExpansion(task.id)} />
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function TaskCard({ task, isExpanded, toggleExpansion }) {
+            return (
+                <div style={{
+                    background: task.completed ? 'rgba(16, 185, 129, 0.1)' : 'rgba(233, 30, 140, 0.05)',
+                    borderRadius: 'var(--border-radius)',
+                    border: `1px solid ${task.completed ? 'var(--color-success)' : 'rgba(233, 30, 140, 0.2)'}`,
+                    overflow: 'hidden'
+                }}>
+                    <div onClick={toggleExpansion} style={{ padding: 'var(--space-md)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
+                        <div style={{
+                            width: '24px', height: '24px', borderRadius: '6px',
+                            border: `2px solid ${task.completed ? 'var(--color-success)' : 'var(--color-primary)'}`,
+                            background: task.completed ? 'var(--color-success)' : 'transparent',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                        }}>
+                            {task.completed && <i data-lucide="check" style={{ width: '16px', height: '16px', color: 'white' }}></i>}
+                        </div>
+
+                        <div style={{ flex: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--color-primary)', fontWeight: 600 }}>{task.time}</span>
+                                <h4 style={{ fontSize: '1.1rem', fontWeight: 600, color: task.completed ? 'var(--color-gray-light)' : 'var(--color-white)', textDecoration: task.completed ? 'line-through' : 'none' }}>{task.title}</h4>
+                            </div>
+                        </div>
+
+                        <i data-lucide={isExpanded ? "chevron-up" : "chevron-down"} style={{ width: '20px', height: '20px', color: 'var(--color-gray)', flexShrink: 0 }}></i>
+                    </div>
+
+                    {isExpanded && task.details.length > 0 && (
+                        <div style={{ padding: 'var(--space-md)', paddingTop: 0, borderTop: '1px solid rgba(233, 30, 140, 0.1)' }}>
+                            <div style={{ marginTop: 'var(--space-md)', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                {task.details.map((detail, index) => (
+                                    <div key={index} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', padding: '0.75rem', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '8px', borderLeft: '3px solid var(--color-primary)' }}>
+                                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--color-primary)', marginTop: '0.5rem', flexShrink: 0 }} />
+                                        <span style={{ color: 'var(--color-gray-light)', lineHeight: 1.6, fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>{detail}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
