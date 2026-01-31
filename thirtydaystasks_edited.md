@@ -1,3 +1,5 @@
+cd "d:\Career 26\Analog IC\Portfolio Website\Website versions\v2" ; git add -A ; git commit -m "t" ; git push
+
 # 6-Month Analog IC Design Roadmap - Daily Tasks (Days 1-30)
 
 **Start Date:** Friday, January 31, 2026  
