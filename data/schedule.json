@@ -2302,6 +2302,1502 @@
           ]
         }
       ]
+    },
+    {
+      "id": "day-31",
+      "dayNumber": 31,
+      "date": "2026-03-02",
+      "dateFormatted": "Monday, March 2, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day31-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day31-task-1",
+              "time": "9:00-10:00",
+              "title": "Week 5 Final Review",
+              "completed": false,
+              "details": [
+                "Complete Week 5 summary document",
+                "Op-amp design milestone achieved",
+                "Self-quiz: Design op-amp from specs (no notes), Explain Miller compensation, Calculate phase margin"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day31-task-2",
+              "time": "10:00-11:30",
+              "title": "Video Publishing",
+              "completed": false,
+              "details": [
+                "Upload op-amp video to YouTube",
+                "Title: I Designed an Op-Amp from Scratch - Complete Process",
+                "Add description, timestamps, and tags"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day31-task-3",
+              "time": "11:30-12:00",
+              "title": "Community Engagement",
+              "completed": false,
+              "details": [
+                "Reddit: Update post in r/chipdesign",
+                "Twitter: Thread on op-amp completion"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day31-afternoon",
+          "name": "Afternoon Session",
+          "time": "12:30-5:00 PM",
+          "duration": 4.5,
+          "tasks": [
+            {
+              "id": "day31-task-4",
+              "time": "12:30-2:00",
+              "title": "Community Engagement",
+              "completed": false,
+              "details": [
+                "Engage with comments from previous posts"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day31-task-5",
+              "time": "2:00-3:30",
+              "title": "Paper Selection for Recreation",
+              "completed": false,
+              "details": [
+                "Target Paper: A Micropower Low-Noise Amplifier for Neural Recording",
+                "Authors: R. R. Harrison, C. Charles (IEEE JSSC 2003)",
+                "Complete Pass 1 reading (10-minute survey)",
+                "Create paper recreation project folder"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day31-task-6",
+              "time": "3:30-5:00",
+              "title": "Week 6 Detailed Planning",
+              "completed": false,
+              "details": [
+                "Overview: Paper recreation + Layout introduction",
+                "Daily breakdown for the week",
+                "Prepare tools: Verify LTspice ready, Download Magic VLSI"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-32",
+      "dayNumber": 32,
+      "date": "2026-03-03",
+      "dateFormatted": "Tuesday, March 3, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day32-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day32-task-1",
+              "time": "6:00-7:30",
+              "title": "Paper Deep Reading - Pass 2",
+              "completed": false,
+              "details": [
+                "Paper: A Micropower Low-Noise Amplifier for Neural Recording",
+                "Section-by-section analysis: Introduction, Architecture",
+                "Key Innovation: Sub-threshold operation for low power",
+                "Take detailed Cornell notes"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day32-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day32-task-2",
+              "time": "7:00-8:30",
+              "title": "Information Extraction",
+              "completed": false,
+              "details": [
+                "Extract transistor sizes: M1,M2 (2000µm/8µm), M3,M4 (500µm/8µm), M5 (200µm/8µm)",
+                "Bias conditions: V_DD=2.8V, Total power=7µW, I_bias=2.5µA",
+                "Process: 1.5µm CMOS",
+                "Performance specs: 40 nV/√Hz noise, 40.8dB gain, 7.2kHz BW"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day32-task-3",
+              "time": "8:30-9:00",
+              "title": "Missing Information Assessment",
+              "completed": false,
+              "details": [
+                "Identify what's NOT explicitly given",
+                "Strategy for missing info",
+                "Document assumptions clearly"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-33",
+      "dayNumber": 33,
+      "date": "2026-03-04",
+      "dateFormatted": "Wednesday, March 4, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day33-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day33-task-1",
+              "time": "6:00-6:30",
+              "title": "Sub-Threshold Operation Study",
+              "completed": false,
+              "details": [
+                "Read: Razavi Design of Analog CMOS IC Ch 2.2.4",
+                "Topic: Weak inversion / sub-threshold region",
+                "Understand: When transistor operates sub-threshold, Exponential I-V relationship"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day33-task-2",
+              "time": "6:30-7:30",
+              "title": "Watch Supplementary Video",
+              "completed": false,
+              "details": [
+                "YouTube: Search sub-threshold MOSFET operation",
+                "Take notes on: How to bias transistor in sub-threshold, Practical considerations"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day33-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day33-task-3",
+              "time": "7:00-8:30",
+              "title": "Build Input Differential Pair (Sub-Threshold)",
+              "completed": false,
+              "details": [
+                "LTspice setup: M1,M2 NMOS W=2000µm L=8µm, M5 Tail I_SS=2.5µA, V_DD=2.8V, V_CM=1.4V",
+                "Adjust model parameters for sub-threshold: VTO=0.7, KP=20u, LAMBDA=0.05",
+                "DC Operating Point: Verify V_GS < V_T (sub-threshold)",
+                "Calculate g_m manually and compare to simulation"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day33-task-4",
+              "time": "8:30-9:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Lab journal: Sub-threshold differential pair",
+                "Screenshot: DC operating point showing V_GS < V_T"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-34",
+      "dayNumber": 34,
+      "date": "2026-03-05",
+      "dateFormatted": "Thursday, March 5, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day34-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day34-task-1",
+              "time": "6:00-7:00",
+              "title": "Reading - Noise in Amplifiers",
+              "completed": false,
+              "details": [
+                "Book: Razavi Design of Analog CMOS IC Ch 7.3-7.4",
+                "Pages: 285-310 (Noise Analysis, Input-Referred Noise)",
+                "Key concepts: Thermal noise, Flicker noise, Input-referred noise calculation"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day34-task-2",
+              "time": "7:00-7:30",
+              "title": "Noise Calculation",
+              "completed": false,
+              "details": [
+                "Hand-calculate expected noise",
+                "Compare to paper's 40 nV/√Hz target"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day34-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day34-task-3",
+              "time": "7:00-8:30",
+              "title": "Complete Circuit Assembly",
+              "completed": false,
+              "details": [
+                "Add current mirror load: M3,M4 PMOS W=500µm L=8µm",
+                "DC Verification: All transistors in sub-threshold, Output DC ≈ 1.4V",
+                "AC Analysis: Measure midband gain (40.8dB target), Bandwidth (7.2kHz target)"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day34-task-4",
+              "time": "8:30-9:00",
+              "title": "Noise Simulation",
+              "completed": false,
+              "details": [
+                "LTspice noise analysis: .noise V(out) V_in",
+                "Measure at 1 kHz (midband)",
+                "Compare to paper: 40 nV/√Hz"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-35",
+      "dayNumber": 35,
+      "date": "2026-03-06",
+      "dateFormatted": "Friday, March 6, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day35-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day35-task-1",
+              "time": "6:00-7:30",
+              "title": "Paper Analysis - Remaining Sections",
+              "completed": false,
+              "details": [
+                "Paper: Harrison & Charles (Sections IV-V)",
+                "Study: Measured frequency response, Noise spectrum, Performance comparison",
+                "Complete Pass 3 (Critical Analysis)",
+                "Write 3-sentence synthesis"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day35-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day35-task-2",
+              "time": "7:00-8:30",
+              "title": "Optimization and Troubleshooting",
+              "completed": false,
+              "details": [
+                "If simulation doesn't match paper: Check gain, bandwidth, noise, power",
+                "Create iteration log with changes and results",
+                "Final tuning: Adjust until >80% match on all key specs"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day35-task-3",
+              "time": "8:30-9:00",
+              "title": "CMRR Testing",
+              "completed": false,
+              "details": [
+                "Measure common-mode rejection",
+                "Target: > 60 dB (from paper)"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-36",
+      "dayNumber": 36,
+      "date": "2026-03-07",
+      "dateFormatted": "Saturday, March 7, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day36-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day36-task-1",
+              "time": "6:00-7:30",
+              "title": "Complete Recreation Documentation",
+              "completed": false,
+              "details": [
+                "Create comprehensive recreation report",
+                "Include: Original Paper info, Recreation Objective, Design Approach",
+                "Results Comparison table, Key Learnings, Challenges Encountered"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day36-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day36-task-2",
+              "time": "7:00-8:30",
+              "title": "Create Comparison Visualizations",
+              "completed": false,
+              "details": [
+                "Generate side-by-side plots: Frequency Response, Noise Spectrum",
+                "Performance Summary bar chart",
+                "Export high-quality images for portfolio"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day36-task-3",
+              "time": "8:30-9:00",
+              "title": "Week 6 Summary Preparation",
+              "completed": false,
+              "details": [
+                "Summarize paper recreation experience",
+                "Identify next paper to recreate"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-37",
+      "dayNumber": 37,
+      "date": "2026-03-08",
+      "dateFormatted": "Sunday, March 8, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day37-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day37-task-1",
+              "time": "9:00-12:00",
+              "title": "Layout Introduction - Magic VLSI",
+              "completed": false,
+              "details": [
+                "Install Magic VLSI with SkyWater 130nm PDK",
+                "Magic Tutorial Part 1: Basic interface, keyboard shortcuts",
+                "Understand layers: nwell, pwell, poly, metal1, metal2",
+                "First Layout: Single NMOS Transistor with DRC check"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day37-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-4:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day37-task-2",
+              "time": "1:00-3:00",
+              "title": "Layout Practice - Current Mirror",
+              "completed": false,
+              "details": [
+                "Layout a simple current mirror",
+                "Match considerations: Same orientation, symmetric placement, interdigitation",
+                "DRC and LVS verification"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day37-task-3",
+              "time": "3:00-4:00",
+              "title": "Layout Learning Consolidation",
+              "completed": false,
+              "details": [
+                "Read: Baker CMOS Circuit Design Chapter 3",
+                "Create layout design rules reference sheet"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day37-evening",
+          "name": "Evening Session",
+          "time": "4:00-8:00 PM",
+          "duration": 4,
+          "tasks": [
+            {
+              "id": "day37-task-4",
+              "time": "4:00-6:00",
+              "title": "Video Content Creation",
+              "completed": false,
+              "details": [
+                "Edit video: Paper Recreation - Neural Amplifier",
+                "12-15 min covering process, results, learnings",
+                "Export: week06_paper_recreation.mp4"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day37-task-5",
+              "time": "6:00-7:00",
+              "title": "Portfolio Updates",
+              "completed": false,
+              "details": [
+                "GitHub: Add paper recreation project",
+                "Add first layout screenshots"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day37-task-6",
+              "time": "7:00-8:00",
+              "title": "Community Engagement",
+              "completed": false,
+              "details": [
+                "Reddit post: Recreated a classic paper",
+                "Twitter thread on paper recreation"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-38",
+      "dayNumber": 38,
+      "date": "2026-03-09",
+      "dateFormatted": "Monday, March 9, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day38-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day38-task-1",
+              "time": "9:00-10:30",
+              "title": "Week 6 Comprehensive Review",
+              "completed": false,
+              "details": [
+                "Complete Week 6 summary document",
+                "Achievements: Paper recreation, Sub-threshold design, Layout basics",
+                "Self-quiz on all topics"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day38-task-2",
+              "time": "10:30-12:00",
+              "title": "Month 2 Completion Review",
+              "completed": false,
+              "details": [
+                "Major milestone: Month 2 complete!",
+                "Summary: Weeks 4-6, Major Designs, New Skills",
+                "Metrics: ~120 hours, 10+ circuits, 6 videos"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day38-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-5:00 PM",
+          "duration": 4,
+          "tasks": [
+            {
+              "id": "day38-task-3",
+              "time": "1:00-2:30",
+              "title": "Video Publishing",
+              "completed": false,
+              "details": [
+                "Upload Week 6 video",
+                "Community engagement"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day38-task-4",
+              "time": "2:30-5:00",
+              "title": "Month 3 Detailed Planning",
+              "completed": false,
+              "details": [
+                "Preview: Week 7-10 topics (ADC, SAR, Layout, PVT)",
+                "Create Week 7 detailed schedule",
+                "Download papers for Month 3"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-39",
+      "dayNumber": 39,
+      "date": "2026-03-10",
+      "dateFormatted": "Tuesday, March 10, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day39-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day39-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - ADC Introduction",
+              "completed": false,
+              "details": [
+                "Book: Johns & Martin Analog IC Design Ch 11.1-11.2",
+                "Pages: 433-458 (Introduction to Data Converters, Quantization)",
+                "Key concepts: ADC vs DAC, Sampling theory, Quantization noise",
+                "Performance metrics: ENOB, SNR, THD, SFDR, INL, DNL"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day39-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day39-task-2",
+              "time": "7:00-8:30",
+              "title": "Video Lectures on ADCs",
+              "completed": false,
+              "details": [
+                "Watch: Boris Murmann Stanford Lecture on ADC Basics",
+                "Take detailed notes with timestamps",
+                "Create comparison table of ADC architectures"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day39-task-3",
+              "time": "8:30-9:00",
+              "title": "Sampling Theory Review",
+              "completed": false,
+              "details": [
+                "Read: Johns & Martin Ch 11.3",
+                "Nyquist sampling theorem, Aliasing"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-40",
+      "dayNumber": 40,
+      "date": "2026-03-11",
+      "dateFormatted": "Wednesday, March 11, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day40-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day40-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - Sample and Hold",
+              "completed": false,
+              "details": [
+                "Book: Johns & Martin Ch 11.4",
+                "Pages: 480-502 (Sample-and-Hold Circuits)",
+                "Key concepts: Track vs hold mode, Switch design, Hold capacitor sizing",
+                "Design equations: Acquisition time, Droop rate, Thermal noise"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day40-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day40-task-2",
+              "time": "7:00-8:45",
+              "title": "Design Sample-and-Hold Circuit",
+              "completed": false,
+              "details": [
+                "Build in LTspice: Transmission gate switch, C_hold=1pF, Unity-gain buffer",
+                "Switch design: NMOS W=5µm, PMOS W=10µm, L=0.18µm",
+                "Simulations: Track mode, Hold mode droop, Acquisition time, Clock feedthrough"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day40-task-3",
+              "time": "8:45-9:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Lab journal: Sample-and-hold design",
+                "Key finding: Clock feedthrough is significant issue"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-41",
+      "dayNumber": 41,
+      "date": "2026-03-12",
+      "dateFormatted": "Thursday, March 12, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day41-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day41-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - Comparators",
+              "completed": false,
+              "details": [
+                "Book: Johns & Martin Ch 11.5",
+                "Pages: 503-525 (Comparator Design for ADCs)",
+                "Key concepts: Metastability, Offset voltage, Propagation delay, Kickback"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day41-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day41-task-2",
+              "time": "7:00-8:45",
+              "title": "Design Dynamic Comparator",
+              "completed": false,
+              "details": [
+                "Build StrongARM latch comparator in LTspice",
+                "Input pair: W=10µm L=0.18µm, Latch: W=5µm, Tail: W=20µm",
+                "Simulations: DC sweep, Transient small input, Resolution test, Kickback measurement"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day41-task-3",
+              "time": "8:45-9:00",
+              "title": "Analysis",
+              "completed": false,
+              "details": [
+                "Understand speed vs power trade-off",
+                "Document design choices"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-42",
+      "dayNumber": 42,
+      "date": "2026-03-13",
+      "dateFormatted": "Friday, March 13, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day42-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day42-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - Flash ADC",
+              "completed": false,
+              "details": [
+                "Book: Johns & Martin Ch 11.6",
+                "Pages: 526-545 (Flash ADC Architecture)",
+                "Key concepts: 2^N-1 comparators, Resistor ladder, Thermometer code"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day42-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day42-task-2",
+              "time": "7:00-8:45",
+              "title": "Design 3-bit Flash ADC",
+              "completed": false,
+              "details": [
+                "Build in LTspice: 7 comparators, V_ref=1.6V, 8 resistor ladder",
+                "Simulation: DC sweep, observe thermometer code",
+                "Verify transition points"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day42-task-3",
+              "time": "8:45-9:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Lab journal: Flash ADC design",
+                "Note scaling problem: 10-bit would need 1023 comparators!"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-43",
+      "dayNumber": 43,
+      "date": "2026-03-14",
+      "dateFormatted": "Saturday, March 14, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day43-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day43-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - SAR ADC Introduction",
+              "completed": false,
+              "details": [
+                "Book: Johns & Martin Ch 11.7",
+                "Pages: 546-570 (Successive Approximation ADC)",
+                "Key concepts: Binary search algorithm, DAC for reference, N bits = N cycles"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day43-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day43-task-2",
+              "time": "7:00-8:45",
+              "title": "Paper Reading - SAR ADC",
+              "completed": false,
+              "details": [
+                "Paper: 10-bit 50-MS/s SAR ADC With Monotonic Capacitor Switching (Huang et al. JSSC 2010)",
+                "Apply 3-Pass Method",
+                "Key innovation: Monotonic switching reduces DAC capacitor size by 50%"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day43-task-3",
+              "time": "8:45-9:00",
+              "title": "Week 7 Summary",
+              "completed": false,
+              "details": [
+                "Create Week 7 summary document",
+                "ADC fundamentals learned, ready for Week 8"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-44",
+      "dayNumber": 44,
+      "date": "2026-03-15",
+      "dateFormatted": "Sunday, March 15, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day44-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day44-task-1",
+              "time": "9:00-12:00",
+              "title": "Building Block Library",
+              "completed": false,
+              "details": [
+                "Create LTspice library with: Sample-and-Hold Module, Dynamic Comparator Module, Resistor Ladder DAC, Flash ADC 3-bit",
+                "Documentation for each module",
+                "Test each module"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day44-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-4:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day44-task-2",
+              "time": "1:00-4:00",
+              "title": "Comparative Analysis Project",
+              "completed": false,
+              "details": [
+                "Compare ADC architectures: Flash vs SAR",
+                "Metrics: Speed, Power, Area, Complexity, Accuracy",
+                "Create visualization and analysis report",
+                "Portfolio piece #5"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day44-evening",
+          "name": "Evening Session",
+          "time": "4:00-8:00 PM",
+          "duration": 4,
+          "tasks": [
+            {
+              "id": "day44-task-3",
+              "time": "4:00-6:00",
+              "title": "Video Content Creation",
+              "completed": false,
+              "details": [
+                "Edit video: ADC Fundamentals - Building Blocks Explained",
+                "15-18 min covering S/H, Comparator, Flash ADC, SAR preview",
+                "Export: week07_adc_fundamentals.mp4"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day44-task-4",
+              "time": "6:00-7:00",
+              "title": "GitHub Organization",
+              "completed": false,
+              "details": [
+                "Create /projects/adc-building-blocks/",
+                "Update main README"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day44-task-5",
+              "time": "7:00-8:00",
+              "title": "Community Engagement",
+              "completed": false,
+              "details": [
+                "Reddit post on ADC building blocks",
+                "Twitter thread on ADC week"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-45",
+      "dayNumber": 45,
+      "date": "2026-03-16",
+      "dateFormatted": "Monday, March 16, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day45-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day45-task-1",
+              "time": "9:00-11:00",
+              "title": "Week 7 Deep Review",
+              "completed": false,
+              "details": [
+                "Review all ADC concepts",
+                "Self-quiz: SNR formula, StrongARM operation, Flash ADC diagram, SAR algorithm"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day45-task-2",
+              "time": "11:00-12:00",
+              "title": "Video Publishing",
+              "completed": false,
+              "details": [
+                "Upload Week 7 video to YouTube",
+                "Add to playlist"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day45-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-5:00 PM",
+          "duration": 4,
+          "tasks": [
+            {
+              "id": "day45-task-3",
+              "time": "1:00-2:30",
+              "title": "Community Engagement",
+              "completed": false,
+              "details": [
+                "Respond to comments",
+                "Share Week 7 results"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day45-task-4",
+              "time": "2:30-5:00",
+              "title": "Week 8 Detailed Planning",
+              "completed": false,
+              "details": [
+                "Topic: Complete SAR ADC Design",
+                "Daily breakdown: DAC, Logic, Integration, Testing, Optimization",
+                "Set up simulation framework"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-46",
+      "dayNumber": 46,
+      "date": "2026-03-17",
+      "dateFormatted": "Tuesday, March 17, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day46-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day46-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - Capacitor DAC",
+              "completed": false,
+              "details": [
+                "Book: Johns & Martin Ch 11.7.2",
+                "Pages: 551-565 (Capacitive DAC for SAR)",
+                "Key concepts: Binary-weighted array, Charge redistribution, Split capacitor"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day46-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day46-task-2",
+              "time": "7:00-8:45",
+              "title": "Design 4-bit Capacitor DAC",
+              "completed": false,
+              "details": [
+                "Build in LTspice: Unit cap C=100fF, Binary-weighted 1C,2C,4C,8C",
+                "V_ref=1.6V, Test all 16 codes",
+                "Verify linearity, Calculate INL/DNL"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day46-task-3",
+              "time": "8:45-9:00",
+              "title": "Analysis",
+              "completed": false,
+              "details": [
+                "Understand perfect linearity with ideal components",
+                "Consider real-world effects: mismatch, parasitics"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-47",
+      "dayNumber": 47,
+      "date": "2026-03-18",
+      "dateFormatted": "Wednesday, March 18, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day47-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day47-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - SAR Logic",
+              "completed": false,
+              "details": [
+                "Book: Johns & Martin Ch 11.7.3",
+                "Pages: 565-578 (SAR Control Logic)",
+                "Key concepts: Shift register, Comparator processing, Timing requirements"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day47-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day47-task-2",
+              "time": "7:00-8:45",
+              "title": "Design SAR Logic (Simplified)",
+              "completed": false,
+              "details": [
+                "Implement control sequence in LTspice",
+                "4-bit SAR example conversion walkthrough",
+                "Verify correct operation with multiple inputs"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day47-task-3",
+              "time": "8:45-9:00",
+              "title": "Documentation",
+              "completed": false,
+              "details": [
+                "Document SAR algorithm clearly",
+                "Create timing diagram"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-48",
+      "dayNumber": 48,
+      "date": "2026-03-19",
+      "dateFormatted": "Thursday, March 19, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day48-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day48-task-1",
+              "time": "6:00-7:30",
+              "title": "Review and Integration Planning",
+              "completed": false,
+              "details": [
+                "Review all components: S/H, Comparator, DAC, Logic",
+                "Plan integration: Signal flow, Clock distribution, Timing constraints",
+                "Create system block diagram"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day48-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day48-task-2",
+              "time": "7:00-8:45",
+              "title": "Integrate Complete 4-bit SAR ADC",
+              "completed": false,
+              "details": [
+                "Build complete system: S/H + DAC + Comparator + Logic",
+                "Clock: 10 MHz, Total conversion: 500ns",
+                "Debug and iterate, verify operation"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day48-task-3",
+              "time": "8:45-9:00",
+              "title": "Initial Testing",
+              "completed": false,
+              "details": [
+                "Document any issues",
+                "Plan fixes for tomorrow"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-49",
+      "dayNumber": 49,
+      "date": "2026-03-20",
+      "dateFormatted": "Friday, March 20, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day49-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day49-task-1",
+              "time": "6:00-7:30",
+              "title": "Reading - ADC Testing",
+              "completed": false,
+              "details": [
+                "Book: Johns & Martin Ch 11.9",
+                "Pages: 600-625 (ADC Testing and Characterization)",
+                "Static testing: INL, DNL; Dynamic testing: ENOB, SNDR, THD, SFDR"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day49-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day49-task-2",
+              "time": "7:00-8:45",
+              "title": "Complete ADC Characterization",
+              "completed": false,
+              "details": [
+                "Test 1: Static Testing (DNL/INL) via code density",
+                "Test 2: Dynamic Testing (FFT) with sine input",
+                "Test 3: Conversion Time measurement",
+                "Results summary table"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day49-task-3",
+              "time": "8:45-9:00",
+              "title": "Analysis",
+              "completed": false,
+              "details": [
+                "Compare to specifications",
+                "Identify performance bottlenecks"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-50",
+      "dayNumber": 50,
+      "date": "2026-03-21",
+      "dateFormatted": "Saturday, March 21, 2026",
+      "totalHours": 4,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day50-morning",
+          "name": "Morning Session",
+          "time": "6:00-7:30 AM",
+          "duration": 1.5,
+          "tasks": [
+            {
+              "id": "day50-task-1",
+              "time": "6:00-7:30",
+              "title": "Comprehensive Review",
+              "completed": false,
+              "details": [
+                "Review complete SAR ADC design",
+                "Check each component: S/H, Comparator, DAC, Logic",
+                "Identify weak points, plan optimizations",
+                "Solve: Johns & Martin Ch 11 problems"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day50-evening",
+          "name": "Evening Session",
+          "time": "7:00-9:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day50-task-2",
+              "time": "7:00-8:45",
+              "title": "Optimization and Improvements",
+              "completed": false,
+              "details": [
+                "Improve: DNL/INL, ENOB, Speed, Power",
+                "Re-run characterization, verify improvements",
+                "Balance power, speed, accuracy trade-offs"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day50-task-3",
+              "time": "8:45-9:00",
+              "title": "Week 8 Summary",
+              "completed": false,
+              "details": [
+                "Summarize SAR ADC design experience",
+                "Prepare for weekend major documentation"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-51",
+      "dayNumber": 51,
+      "date": "2026-03-22",
+      "dateFormatted": "Sunday, March 22, 2026",
+      "totalHours": 8,
+      "completed": false,
+      "sessions": [
+        {
+          "id": "day51-morning",
+          "name": "Morning Session",
+          "time": "9:00 AM - 12:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day51-task-1",
+              "time": "9:00-12:00",
+              "title": "Complete SAR ADC Design Report",
+              "completed": false,
+              "details": [
+                "Create comprehensive professional document: 4-bit SAR ADC Design",
+                "Executive Summary: ENOB, power, sampling rate, technology",
+                "Architecture Overview: Block diagram, signal flow, design choices",
+                "Component Design: S/H, Capacitor DAC (100fF unit, 1.5pF total), Comparator (StrongARM), SAR Logic",
+                "System Integration: Complete schematic, timing analysis, critical paths",
+                "Characterization Results: DNL/INL (static), ENOB/SNDR/SFDR/THD (dynamic), Timing/Power",
+                "Design Insights, Challenges/Solutions, Future Improvements",
+                "Export as PDF: Portfolio piece #6"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day51-afternoon",
+          "name": "Afternoon Session",
+          "time": "1:00-4:00 PM",
+          "duration": 3,
+          "tasks": [
+            {
+              "id": "day51-task-2",
+              "time": "1:00-4:00",
+              "title": "Expand to 10-bit Design (Conceptual)",
+              "completed": false,
+              "details": [
+                "Calculate requirements: Unit cap matching (<0.05%), Comparator offset (<0.8mV)",
+                "Split-capacitor array design: MSB 5-bit + LSB 5-bit + Bridge = 63C vs 1023C",
+                "Switching schemes: Conventional, Monotonic, VCM-based - compare power",
+                "Design challenges: Matching, Settling, Noise, Reference stability",
+                "Create scaling analysis: 4-bit vs 10-bit comparison table",
+                "Document 10-bit design plan for paper recreation next week"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day51-late-afternoon",
+          "name": "Late Afternoon Session",
+          "time": "4:00-6:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day51-task-3",
+              "time": "4:00-6:00",
+              "title": "Video Content Creation",
+              "completed": false,
+              "details": [
+                "Edit video: Designing a SAR ADC from Scratch (18-22 min)",
+                "Structure: Intro, Binary Search Algorithm, Capacitor DAC, Complete SAR System",
+                "Include: Characterization (DNL/INL, FFT, ENOB), Design Insights",
+                "Add: Live simulation clips, Annotated schematics, FFT plots",
+                "Export: week08_sar_adc_design.mp4"
+              ],
+              "attachments": []
+            }
+          ]
+        },
+        {
+          "id": "day51-evening",
+          "name": "Evening Session",
+          "time": "6:00-8:00 PM",
+          "duration": 2,
+          "tasks": [
+            {
+              "id": "day51-task-4",
+              "time": "6:00-7:00",
+              "title": "GitHub Major Update",
+              "completed": false,
+              "details": [
+                "Create /projects/sar-adc-4bit/",
+                "Add: README, /schematics, /results, /documentation, /analysis",
+                "Update main README: Week 8 complete, link to project, performance highlights"
+              ],
+              "attachments": []
+            },
+            {
+              "id": "day51-task-5",
+              "time": "7:00-8:00",
+              "title": "Community Engagement",
+              "completed": false,
+              "details": [
+                "Reddit major post in r/chipdesign: Complete SAR ADC design",
+                "Include: Block diagram, Performance summary, FFT spectrum, GitHub link",
+                "Twitter thread: Week 8 SAR ADC journey"
+              ],
+              "attachments": []
+            }
+          ]
+        }
+      ]
     }
   ],
   "stats": {
