@@ -499,12 +499,17 @@
         function CalendarView({ days, onDaySelect, currentMonth, onMonthChange }) {
             const [hoveredDay, setHoveredDay] = useState(null);
 
-            // Store week offset from current week (0 = this week, -1 = last week, 1 = next week)
-            const [weekOffset, setWeekOffset] = useState(0);
+            // Mobile week view: store the Sunday timestamp as a number (milliseconds)
+            // Initialize to the Sunday of the current week
+            const [weekSundayMs, setWeekSundayMs] = useState(() => {
+                const now = new Date();
+                const sunday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay());
+                return sunday.getTime();
+            });
 
             useEffect(() => {
                 if (window.lucide) window.lucide.createIcons();
-            }, [currentMonth, weekOffset]);
+            }, [currentMonth, weekSundayMs]);
 
             const getChallengeDayForDate = (year, month, dayOfMonth) => {
                 const date = new Date(year, month, dayOfMonth);
@@ -524,53 +529,54 @@
                 return { daysInMonth, startingDayOfWeek, year, month };
             };
 
-            // Calculate week days based on offset from current week
-            const getWeekDaysFromOffset = () => {
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
+            // Navigate week: add or subtract 7 days worth of milliseconds
+            const goToPrevWeek = () => {
+                setWeekSundayMs(prev => prev - (7 * 24 * 60 * 60 * 1000));
+            };
 
-                // Find Sunday of current week
-                const currentSunday = new Date(today);
-                currentSunday.setDate(today.getDate() - today.getDay());
+            const goToNextWeek = () => {
+                setWeekSundayMs(prev => prev + (7 * 24 * 60 * 60 * 1000));
+            };
 
-                // Apply week offset (multiply by 7 days)
-                const targetSunday = new Date(currentSunday);
-                targetSunday.setDate(currentSunday.getDate() + (weekOffset * 7));
-
-                // Build array of 7 days starting from target Sunday
-                const result = [];
+            // Build the 7 days of the current week from the timestamp
+            const buildWeekDays = () => {
+                const sunday = new Date(weekSundayMs);
+                const weekArray = [];
                 for (let i = 0; i < 7; i++) {
-                    const dayDate = new Date(targetSunday);
-                    dayDate.setDate(targetSunday.getDate() + i);
-                    result.push({
-                        date: dayDate,
-                        dayOfWeek: dayDate.getDay(),
-                        dayOfMonth: dayDate.getDate(),
-                        month: dayDate.getMonth(),
-                        year: dayDate.getFullYear()
+                    const d = new Date(sunday.getFullYear(), sunday.getMonth(), sunday.getDate() + i);
+                    weekArray.push({
+                        year: d.getFullYear(),
+                        month: d.getMonth(),
+                        day: d.getDate(),
+                        weekday: d.getDay()
                     });
                 }
-                return result;
+                return weekArray;
             };
 
-            const navigateWeek = (direction) => {
-                setWeekOffset(prev => prev + direction);
-            };
-
-            const getWeekRangeText = () => {
-                const weekData = getWeekDaysFromOffset();
-                if (weekData.length === 0) return '';
-                const firstDay = weekData[0].date;
-                const lastDay = weekData[6].date;
-                const options = { month: 'short', day: 'numeric' };
-                return `${firstDay.toLocaleDateString('en-US', options)} - ${lastDay.toLocaleDateString('en-US', options)}`;
+            // Format the week range text
+            const formatWeekRange = () => {
+                const sunday = new Date(weekSundayMs);
+                const saturday = new Date(weekSundayMs + (6 * 24 * 60 * 60 * 1000));
+                const opts = { month: 'short', day: 'numeric' };
+                const startStr = sunday.toLocaleDateString('en-US', opts);
+                const endStr = saturday.toLocaleDateString('en-US', opts);
+                // Add year if it's different from current year or if weeks span different years
+                if (sunday.getFullYear() !== saturday.getFullYear()) {
+                    return `${sunday.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} - ${saturday.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+                } else if (sunday.getFullYear() !== new Date().getFullYear()) {
+                    return `${startStr} - ${endStr}, ${sunday.getFullYear()}`;
+                }
+                return `${startStr} - ${endStr}`;
             };
 
             const { daysInMonth, startingDayOfWeek, year, month } = getDaysInMonth(currentMonth);
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
             const dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-            const weekDays = getWeekDaysFromOffset();
+
+            // Build week days for mobile view
+            const mobileWeekDays = buildWeekDays();
 
             return (
                 <div style={{ minHeight: '100vh', paddingTop: '120px', paddingBottom: 'var(--space-3xl)', background: 'var(--color-black)' }}>
@@ -662,14 +668,14 @@
                                     background: 'rgba(31, 31, 31, 0.6)', borderRadius: 'var(--border-radius)',
                                     border: '1px solid rgba(233, 30, 140, 0.2)'
                                 }}>
-                                    <button className="week-nav-btn" onClick={() => navigateWeek(-1)} style={{
+                                    <button onClick={goToPrevWeek} style={{
                                         background: 'none', border: '1px solid var(--color-primary)', borderRadius: '8px',
                                         padding: '0.5rem 0.75rem', color: 'var(--color-primary)', cursor: 'pointer', fontWeight: 600, fontSize: '0.9rem'
                                     }}>←</button>
                                     <h2 style={{ fontSize: '1rem', fontWeight: 700, fontFamily: 'var(--font-display)', textAlign: 'center' }}>
-                                        {getWeekRangeText()}
+                                        {formatWeekRange()}
                                     </h2>
-                                    <button className="week-nav-btn" onClick={() => navigateWeek(1)} style={{
+                                    <button onClick={goToNextWeek} style={{
                                         background: 'none', border: '1px solid var(--color-primary)', borderRadius: '8px',
                                         padding: '0.5rem 0.75rem', color: 'var(--color-primary)', cursor: 'pointer', fontWeight: 600, fontSize: '0.9rem'
                                     }}>→</button>
@@ -677,8 +683,8 @@
 
                                 {/* Week Days Cards */}
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                    {weekDays.map((dayData, index) => {
-                                        const challengeDay = getChallengeDayForDate(dayData.year, dayData.month, dayData.dayOfMonth);
+                                    {mobileWeekDays.map((dayInfo, idx) => {
+                                        const challengeDay = getChallengeDayForDate(dayInfo.year, dayInfo.month, dayInfo.day);
                                         const isCompleted = challengeDay?.completed || false;
                                         const hasData = !!challengeDay;
                                         const sessions = challengeDay?.sessions || [];
@@ -686,7 +692,7 @@
 
                                         return (
                                             <div
-                                                key={index}
+                                                key={idx}
                                                 onClick={() => hasData && onDaySelect(challengeDay, currentMonth)}
                                                 style={{
                                                     display: 'flex',
@@ -725,10 +731,10 @@
                                                     flexShrink: 0
                                                 }}>
                                                     <span style={{ fontSize: '0.7rem', fontWeight: 600, color: hasData ? 'white' : 'var(--color-gray)', textTransform: 'uppercase' }}>
-                                                        {dayNamesShort[dayData.dayOfWeek]}
+                                                        {dayNamesShort[dayInfo.weekday]}
                                                     </span>
                                                     <span style={{ fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-display)', color: hasData ? 'white' : 'var(--color-gray)' }}>
-                                                        {dayData.dayOfMonth}
+                                                        {dayInfo.day}
                                                     </span>
                                                 </div>
 
