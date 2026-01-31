@@ -58,14 +58,16 @@
           "tasks": [
             {
               "id": "day1-task-3",
-              "time": "7:00-8:00",
+              "time": "7:00-7:05",
               "title": "Software Installation",
-              "completed": false,
+              "completed": true,
               "details": [
                 "Download and install LTspice XVII from analog.com/ltspice",
                 "Complete LTspice tutorial (Help → Examples)",
                 "Run example schematic: RC circuit",
-                "Familiarize with: component placement, wiring, simulation commands"
+                "Familiarize with: component placement, wiring, simulation commands",
+                "COMMENT: Just needed an update - already had it installed",
+                "Aready had some idea, watched circuitbread - LTSpice - to remember"
               ],
               "attachments": []
             },
