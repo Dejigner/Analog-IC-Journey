@@ -499,17 +499,9 @@
         function CalendarView({ days, onDaySelect, currentMonth, onMonthChange }) {
             const [hoveredDay, setHoveredDay] = useState(null);
 
-            // Mobile week view: store the Sunday timestamp as a number (milliseconds)
-            // Initialize to the Sunday of the current week
-            const [weekSundayMs, setWeekSundayMs] = useState(() => {
-                const now = new Date();
-                const sunday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay());
-                return sunday.getTime();
-            });
-
             useEffect(() => {
                 if (window.lucide) window.lucide.createIcons();
-            }, [currentMonth, weekSundayMs]);
+            }, [currentMonth]);
 
             const getChallengeDayForDate = (year, month, dayOfMonth) => {
                 const date = new Date(year, month, dayOfMonth);
@@ -529,45 +521,30 @@
                 return { daysInMonth, startingDayOfWeek, year, month };
             };
 
-            // Navigate week: add or subtract 7 days worth of milliseconds
-            const goToPrevWeek = () => {
-                setWeekSundayMs(prev => prev - (7 * 24 * 60 * 60 * 1000));
-            };
+            // Build agenda items from days data - sorted by date
+            const buildAgendaItems = () => {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
 
-            const goToNextWeek = () => {
-                setWeekSundayMs(prev => prev + (7 * 24 * 60 * 60 * 1000));
-            };
+                return days
+                    .map(day => {
+                        const dayDate = new Date(day.date);
+                        const sessions = day.sessions || [];
+                        const taskCount = sessions.reduce((acc, s) => acc + (s.tasks?.length || 0), 0);
+                        const firstTaskTitle = sessions[0]?.tasks?.[0]?.title || null;
+                        const isPast = dayDate < today;
+                        const isToday = dayDate.toDateString() === today.toDateString();
 
-            // Build the 7 days of the current week from the timestamp
-            const buildWeekDays = () => {
-                const sunday = new Date(weekSundayMs);
-                const weekArray = [];
-                for (let i = 0; i < 7; i++) {
-                    const d = new Date(sunday.getFullYear(), sunday.getMonth(), sunday.getDate() + i);
-                    weekArray.push({
-                        year: d.getFullYear(),
-                        month: d.getMonth(),
-                        day: d.getDate(),
-                        weekday: d.getDay()
-                    });
-                }
-                return weekArray;
-            };
-
-            // Format the week range text
-            const formatWeekRange = () => {
-                const sunday = new Date(weekSundayMs);
-                const saturday = new Date(weekSundayMs + (6 * 24 * 60 * 60 * 1000));
-                const opts = { month: 'short', day: 'numeric' };
-                const startStr = sunday.toLocaleDateString('en-US', opts);
-                const endStr = saturday.toLocaleDateString('en-US', opts);
-                // Add year if it's different from current year or if weeks span different years
-                if (sunday.getFullYear() !== saturday.getFullYear()) {
-                    return `${sunday.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} - ${saturday.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
-                } else if (sunday.getFullYear() !== new Date().getFullYear()) {
-                    return `${startStr} - ${endStr}, ${sunday.getFullYear()}`;
-                }
-                return `${startStr} - ${endStr}`;
+                        return {
+                            ...day,
+                            dayDate,
+                            taskCount,
+                            firstTaskTitle,
+                            isPast,
+                            isToday
+                        };
+                    })
+                    .sort((a, b) => a.dayDate - b.dayDate);
             };
 
             const { daysInMonth, startingDayOfWeek, year, month } = getDaysInMonth(currentMonth);
@@ -575,8 +552,8 @@
             const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
             const dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-            // Build week days for mobile view
-            const mobileWeekDays = buildWeekDays();
+            // Build agenda for mobile view
+            const agendaItems = buildAgendaItems();
 
             return (
                 <div style={{ minHeight: '100vh', paddingTop: '120px', paddingBottom: 'var(--space-3xl)', background: 'var(--color-black)' }}>
@@ -659,110 +636,141 @@
                                 </div>
                             </div>
 
-                            {/* Mobile Week Slider */}
+                            {/* Mobile Agenda View */}
                             <div className="mobile-week-view">
-                                {/* Week Navigation */}
+                                {/* Agenda Header */}
                                 <div style={{
-                                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                                    marginBottom: 'var(--space-md)', padding: 'var(--space-sm)',
+                                    marginBottom: 'var(--space-md)', padding: 'var(--space-md)',
                                     background: 'rgba(31, 31, 31, 0.6)', borderRadius: 'var(--border-radius)',
-                                    border: '1px solid rgba(233, 30, 140, 0.2)'
+                                    border: '1px solid rgba(233, 30, 140, 0.2)', textAlign: 'center'
                                 }}>
-                                    <button onClick={goToPrevWeek} style={{
-                                        background: 'none', border: '1px solid var(--color-primary)', borderRadius: '8px',
-                                        padding: '0.5rem 0.75rem', color: 'var(--color-primary)', cursor: 'pointer', fontWeight: 600, fontSize: '0.9rem'
-                                    }}>←</button>
-                                    <h2 style={{ fontSize: '1rem', fontWeight: 700, fontFamily: 'var(--font-display)', textAlign: 'center' }}>
-                                        {formatWeekRange()}
+                                    <h2 style={{ fontSize: '1.1rem', fontWeight: 700, fontFamily: 'var(--font-display)', color: 'var(--color-primary)' }}>
+                                        <i data-lucide="calendar-days" style={{ width: '18px', height: '18px', marginRight: '0.5rem', verticalAlign: 'middle' }}></i>
+                                        Journey Timeline
                                     </h2>
-                                    <button onClick={goToNextWeek} style={{
-                                        background: 'none', border: '1px solid var(--color-primary)', borderRadius: '8px',
-                                        padding: '0.5rem 0.75rem', color: 'var(--color-primary)', cursor: 'pointer', fontWeight: 600, fontSize: '0.9rem'
-                                    }}>→</button>
+                                    <p style={{ fontSize: '0.85rem', color: 'var(--color-gray-light)', marginTop: '0.25rem' }}>
+                                        {agendaItems.length} days scheduled
+                                    </p>
                                 </div>
 
-                                {/* Week Days Cards */}
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                    {mobileWeekDays.map((dayInfo, idx) => {
-                                        const challengeDay = getChallengeDayForDate(dayInfo.year, dayInfo.month, dayInfo.day);
-                                        const isCompleted = challengeDay?.completed || false;
-                                        const hasData = !!challengeDay;
-                                        const sessions = challengeDay?.sessions || [];
-                                        const taskCount = sessions.reduce((acc, s) => acc + (s.tasks?.length || 0), 0);
+                                {/* Timeline */}
+                                <div style={{ position: 'relative', paddingLeft: '20px' }}>
+                                    {/* Vertical line */}
+                                    <div style={{
+                                        position: 'absolute', left: '8px', top: '0', bottom: '0',
+                                        width: '2px', background: 'linear-gradient(to bottom, var(--color-primary), var(--color-primary-dark))'
+                                    }} />
 
-                                        return (
-                                            <div
-                                                key={idx}
-                                                onClick={() => hasData && onDaySelect(challengeDay, currentMonth)}
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: '1rem',
-                                                    padding: '1rem',
-                                                    background: isCompleted
-                                                        ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1))'
-                                                        : hasData
-                                                            ? 'rgba(233, 30, 140, 0.1)'
-                                                            : 'rgba(31, 31, 31, 0.6)',
-                                                    border: hasData
-                                                        ? isCompleted
-                                                            ? '1px solid var(--color-success)'
-                                                            : '1px solid rgba(233, 30, 140, 0.3)'
-                                                        : '1px solid rgba(255, 255, 255, 0.05)',
-                                                    borderRadius: 'var(--border-radius)',
-                                                    cursor: hasData ? 'pointer' : 'default',
-                                                    transition: 'all 0.3s ease'
-                                                }}
-                                            >
-                                                {/* Day Badge */}
-                                                <div style={{
-                                                    width: '60px',
-                                                    height: '60px',
-                                                    borderRadius: '12px',
-                                                    background: isCompleted
-                                                        ? 'var(--color-success)'
-                                                        : hasData
-                                                            ? 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))'
-                                                            : 'rgba(255, 255, 255, 0.05)',
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    flexShrink: 0
-                                                }}>
-                                                    <span style={{ fontSize: '0.7rem', fontWeight: 600, color: hasData ? 'white' : 'var(--color-gray)', textTransform: 'uppercase' }}>
-                                                        {dayNamesShort[dayInfo.weekday]}
-                                                    </span>
-                                                    <span style={{ fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-display)', color: hasData ? 'white' : 'var(--color-gray)' }}>
-                                                        {dayInfo.day}
-                                                    </span>
-                                                </div>
+                                    {/* Agenda Items */}
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                        {agendaItems.map((item, idx) => {
+                                            const sessions = item.sessions || [];
+                                            const taskCount = sessions.reduce((acc, s) => acc + (s.tasks?.length || 0), 0);
+                                            const firstTask = sessions[0]?.tasks?.[0];
 
-                                                {/* Day Info */}
-                                                <div style={{ flex: 1 }}>
-                                                    {hasData ? (
-                                                        <>
-                                                            <div style={{ fontWeight: 700, fontSize: '1.1rem', color: 'var(--color-primary)', fontFamily: 'var(--font-mono)' }}>
-                                                                DAY {challengeDay.dayNumber}
+                                            return (
+                                                <div key={item.id} style={{ position: 'relative' }}>
+                                                    {/* Timeline dot */}
+                                                    <div style={{
+                                                        position: 'absolute', left: '-16px', top: '20px',
+                                                        width: '14px', height: '14px', borderRadius: '50%',
+                                                        background: item.isToday
+                                                            ? 'var(--color-warning)'
+                                                            : item.completed
+                                                                ? 'var(--color-success)'
+                                                                : 'var(--color-primary)',
+                                                        border: '3px solid var(--color-black)',
+                                                        zIndex: 1
+                                                    }} />
+
+                                                    {/* Card */}
+                                                    <div
+                                                        onClick={() => onDaySelect(item, currentMonth)}
+                                                        style={{
+                                                            marginLeft: '0.5rem',
+                                                            padding: '1rem',
+                                                            background: item.isToday
+                                                                ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05))'
+                                                                : item.completed
+                                                                    ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05))'
+                                                                    : item.isPast
+                                                                        ? 'rgba(31, 31, 31, 0.4)'
+                                                                        : 'rgba(233, 30, 140, 0.08)',
+                                                            border: item.isToday
+                                                                ? '1px solid var(--color-warning)'
+                                                                : item.completed
+                                                                    ? '1px solid var(--color-success)'
+                                                                    : '1px solid rgba(233, 30, 140, 0.25)',
+                                                            borderRadius: 'var(--border-radius)',
+                                                            cursor: 'pointer',
+                                                            transition: 'all 0.3s ease',
+                                                            opacity: item.isPast && !item.completed ? 0.7 : 1
+                                                        }}
+                                                    >
+                                                        {/* Date header */}
+                                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                                                <span style={{
+                                                                    fontWeight: 800, fontSize: '1.3rem',
+                                                                    fontFamily: 'var(--font-display)',
+                                                                    color: item.isToday ? 'var(--color-warning)' : 'var(--color-white)'
+                                                                }}>
+                                                                    {item.dayDate.getDate()}
+                                                                </span>
+                                                                <div>
+                                                                    <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--color-gray-light)' }}>
+                                                                        {item.dayDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short' })}
+                                                                    </div>
+                                                                    {item.isToday && (
+                                                                        <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--color-warning)', textTransform: 'uppercase' }}>
+                                                                            Today
+                                                                        </span>
+                                                                    )}
+                                                                </div>
                                                             </div>
-                                                            <div style={{ fontSize: '0.9rem', color: 'var(--color-gray-light)', marginTop: '0.25rem' }}>
-                                                                {isCompleted ? '✓ Completed' : `${taskCount} task${taskCount !== 1 ? 's' : ''}`}
+                                                            <div style={{
+                                                                padding: '0.3rem 0.6rem',
+                                                                background: item.completed ? 'var(--color-success)' : 'var(--color-primary)',
+                                                                borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700,
+                                                                color: 'white', fontFamily: 'var(--font-mono)'
+                                                            }}>
+                                                                DAY {item.dayNumber}
                                                             </div>
-                                                        </>
-                                                    ) : (
-                                                        <div style={{ color: 'var(--color-gray)', fontSize: '0.9rem' }}>
-                                                            No tasks scheduled
                                                         </div>
-                                                    )}
-                                                </div>
 
-                                                {/* Arrow */}
-                                                {hasData && (
-                                                    <i data-lucide="chevron-right" style={{ width: '20px', height: '20px', color: 'var(--color-primary)' }}></i>
-                                                )}
-                                            </div>
-                                        );
-                                    })}
+                                                        {/* Task preview */}
+                                                        <div style={{
+                                                            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                                                            paddingTop: '0.5rem', borderTop: '1px solid rgba(255,255,255,0.05)'
+                                                        }}>
+                                                            <div style={{ flex: 1 }}>
+                                                                {taskCount > 0 ? (
+                                                                    <>
+                                                                        <div style={{ fontSize: '0.85rem', color: 'var(--color-gray-light)' }}>
+                                                                            {item.completed ? '✓ ' : ''}{taskCount} task{taskCount !== 1 ? 's' : ''}
+                                                                        </div>
+                                                                        {firstTask && (
+                                                                            <div style={{
+                                                                                fontSize: '0.8rem', color: 'var(--color-gray)',
+                                                                                marginTop: '0.25rem', fontStyle: 'italic'
+                                                                            }}>
+                                                                                {firstTask.title}...
+                                                                            </div>
+                                                                        )}
+                                                                    </>
+                                                                ) : (
+                                                                    <div style={{ fontSize: '0.85rem', color: 'var(--color-gray)' }}>
+                                                                        No tasks yet
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                            <i data-lucide="chevron-right" style={{ width: '18px', height: '18px', color: 'var(--color-primary)' }}></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             </div>
 
