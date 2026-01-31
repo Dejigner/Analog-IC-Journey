@@ -109,7 +109,13 @@
                 "     Calculate: g_m = √(2μCox(W/L)I_D)",
                 "     Compare to gain: A_v = -g_m × R_D"
               ],
-              "attachments": []
+              "attachments": [
+                {
+                  "type": "pdf",
+                  "name": "Common Source Amplifier Simulation",
+                  "url": "assets/portfolio/cs1.pdf"
+                }
+              ]
             },
             {
               "id": "day3-task-5",
