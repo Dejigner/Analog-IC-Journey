@@ -498,19 +498,13 @@
 
         function CalendarView({ days, onDaySelect, currentMonth, onMonthChange }) {
             const [hoveredDay, setHoveredDay] = useState(null);
-            const [currentWeekStart, setCurrentWeekStart] = useState(() => {
-                // Start with today's date and find the Sunday of this week
-                const today = new Date();
-                const dayOfWeek = today.getDay();
-                const sunday = new Date(today);
-                sunday.setDate(today.getDate() - dayOfWeek);
-                sunday.setHours(0, 0, 0, 0);
-                return sunday;
-            });
+
+            // Store week offset from current week (0 = this week, -1 = last week, 1 = next week)
+            const [weekOffset, setWeekOffset] = useState(0);
 
             useEffect(() => {
                 if (window.lucide) window.lucide.createIcons();
-            }, [currentMonth, currentWeekStart]);
+            }, [currentMonth, weekOffset]);
 
             const getChallengeDayForDate = (year, month, dayOfMonth) => {
                 const date = new Date(year, month, dayOfMonth);
@@ -530,34 +524,53 @@
                 return { daysInMonth, startingDayOfWeek, year, month };
             };
 
-            const getWeekDays = () => {
-                const weekDays = [];
+            // Calculate week days based on offset from current week
+            const getWeekDaysFromOffset = () => {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                // Find Sunday of current week
+                const currentSunday = new Date(today);
+                currentSunday.setDate(today.getDate() - today.getDay());
+
+                // Apply week offset (multiply by 7 days)
+                const targetSunday = new Date(currentSunday);
+                targetSunday.setDate(currentSunday.getDate() + (weekOffset * 7));
+
+                // Build array of 7 days starting from target Sunday
+                const result = [];
                 for (let i = 0; i < 7; i++) {
-                    const date = new Date(currentWeekStart);
-                    date.setDate(currentWeekStart.getDate() + i);
-                    weekDays.push(date);
+                    const dayDate = new Date(targetSunday);
+                    dayDate.setDate(targetSunday.getDate() + i);
+                    result.push({
+                        date: dayDate,
+                        dayOfWeek: dayDate.getDay(),
+                        dayOfMonth: dayDate.getDate(),
+                        month: dayDate.getMonth(),
+                        year: dayDate.getFullYear()
+                    });
                 }
-                return weekDays;
+                return result;
             };
 
             const navigateWeek = (direction) => {
-                const newStart = new Date(currentWeekStart);
-                newStart.setDate(currentWeekStart.getDate() + (direction * 7));
-                setCurrentWeekStart(newStart);
+                setWeekOffset(prev => prev + direction);
             };
 
             const getWeekRangeText = () => {
-                const weekEnd = new Date(currentWeekStart);
-                weekEnd.setDate(currentWeekStart.getDate() + 6);
+                const weekData = getWeekDaysFromOffset();
+                if (weekData.length === 0) return '';
+                const firstDay = weekData[0].date;
+                const lastDay = weekData[6].date;
                 const options = { month: 'short', day: 'numeric' };
-                return `${currentWeekStart.toLocaleDateString('en-US', options)} - ${weekEnd.toLocaleDateString('en-US', options)}`;
+                return `${firstDay.toLocaleDateString('en-US', options)} - ${lastDay.toLocaleDateString('en-US', options)}`;
             };
 
             const { daysInMonth, startingDayOfWeek, year, month } = getDaysInMonth(currentMonth);
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
             const dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-            const weekDays = getWeekDays();
+            const weekDays = getWeekDaysFromOffset();
 
             return (
                 <div style={{ minHeight: '100vh', paddingTop: '120px', paddingBottom: 'var(--space-3xl)', background: 'var(--color-black)' }}>
@@ -664,8 +677,8 @@
 
                                 {/* Week Days Cards */}
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                    {weekDays.map((date, index) => {
-                                        const challengeDay = getChallengeDayForDate(date.getFullYear(), date.getMonth(), date.getDate());
+                                    {weekDays.map((dayData, index) => {
+                                        const challengeDay = getChallengeDayForDate(dayData.year, dayData.month, dayData.dayOfMonth);
                                         const isCompleted = challengeDay?.completed || false;
                                         const hasData = !!challengeDay;
                                         const sessions = challengeDay?.sessions || [];
@@ -712,10 +725,10 @@
                                                     flexShrink: 0
                                                 }}>
                                                     <span style={{ fontSize: '0.7rem', fontWeight: 600, color: hasData ? 'white' : 'var(--color-gray)', textTransform: 'uppercase' }}>
-                                                        {dayNamesShort[date.getDay()]}
+                                                        {dayNamesShort[dayData.dayOfWeek]}
                                                     </span>
                                                     <span style={{ fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-display)', color: hasData ? 'white' : 'var(--color-gray)' }}>
-                                                        {date.getDate()}
+                                                        {dayData.dayOfMonth}
                                                     </span>
                                                 </div>
 
